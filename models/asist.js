@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
-const { sequelizeAsist } = require('../db/database.js');
+const { sequelizeUsers } = require('../db/database.js');
 
-const asist = sequelizeAsist.define('asist', {
+const asist = sequelizeUsers.define('asist', {
     id_asistencia: {
         type: DataTypes.INTEGER,
         allowNull: false,
