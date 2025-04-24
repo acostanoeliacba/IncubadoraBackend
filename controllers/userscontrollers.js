@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 
-// Crear un nuevo usuario
+
 const createUser = async (req, res) => {
     try{
         const newUser = await User.create(req.body);
@@ -14,10 +14,10 @@ const createUser = async (req, res) => {
         res.status(500).json({ message: 'Error al crear el usuario' });
     }
 };
-//todos los users
+
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.findAll(); // Obtener todos los usuarios
+        const users = await User.findAll(); 
 
         if (users.length === 0) {
             return res.status(404).json({ message: 'No se encontraron usuarios' });
@@ -30,7 +30,6 @@ const getAllUsers = async (req, res) => {
     }
 };
 
-// Obtener un usuario por ID
 const getUserById = async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);  // Buscar por ID
@@ -45,8 +44,6 @@ const getUserById = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener el Usuario' });
     }
 };
-
-// Actualizar usuario
 
 const updateUserById = async (req, res) => {
     const { id } = req.params;
@@ -73,7 +70,7 @@ const userLoginValidations = [
 ];
 
 const userLogin = async(req, res) => {
-  // Verificar si hay errores de validación
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -118,9 +115,6 @@ function verifyToken(req, res, next) {
     next();
   });
 }
-
-
-//**************************
 
 module.exports = {
     userLogin,

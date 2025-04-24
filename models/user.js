@@ -39,7 +39,7 @@ const users = sequelizeUsers.define('users', {
 },
 {
     tableName: 'Docentes',  // Nombre de la tabla
-    timestamps: false,      // Deshabilito las columnas createdAt y updatedAt para que sequelize no las solicite ,evita agregarlas en //BD
+    timestamps: false,      
 });
 
 module.exports = users;
