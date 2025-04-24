@@ -89,7 +89,7 @@ const userLogin = async(req, res) => {
       return res.status(401).json({ message: 'Credenciales password incorrecto' });
     }
 
-    // Generar token JWT
+
     const token = jwt.sign({ user_email: user.user_email }, 'your-secret-key', { expiresIn: '3h' });
       res.json({ token });
 
@@ -99,7 +99,8 @@ const userLogin = async(req, res) => {
   }  
 };
 
-// Middleware para verificar el token
+
+
 function verifyToken(req, res, next) {
   const token = req.header('Authorization')?.split(' ')[1]; // El token suele estar en el encabezado Authorization
 
