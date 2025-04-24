@@ -4,23 +4,22 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const { sequelizeUsers } = require('./db/database.js');
 
-const userRoutes = require('./routes/usersroutes');  // Rutas de usuarios
-const asistRoutes = require('./routes/asistroutes');  // Rutas de usuarios
+const userRoutes = require('./routes/usersroutes');  
+const asistRoutes = require('./routes/asistroutes');  
 
-dotenv.config();  // Cargar variables de entorno
-
+dotenv.config(); 
 const app = express();
 
-// URL frontend Angular
+
 app.use(cors({
   origin: 'http://localhost:4200'  
 }));
 
 
 app.use(express.json());
-app.use(cors());  // Solo si es nesesario usar CORS
+app.use(cors());  
 
-// Rutas
+
 app.use('/user', userRoutes);
 app.use('/asist', asistRoutes);
 
