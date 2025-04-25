@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-//const sequelize = require('./config/db');  // Configuración de la base de datos
 const { sequelizeUsers } = require('./db/database.js');
 
 const userRoutes = require('./routes/usersroutes');  // Rutas de usuarios
@@ -16,7 +15,7 @@ app.use(cors({
   origin: 'http://localhost:4200'  
 }));
 
-// Middleware para procesar el cuerpo de la petición
+
 app.use(express.json());
 app.use(cors());  // Solo si es nesesario usar CORS
 
