@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 
-
+//tabla usuarios es destino
 const createUser = async (req, res) => {
     try{
         const newUser = await User.create(req.body);
