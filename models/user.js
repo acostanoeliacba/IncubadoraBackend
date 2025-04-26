@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
 const { sequelizeUsers } = require('../db/database.js');
-
+//tabla usuarios reemplasara a  tabla alumno y tabla docente
 const users = sequelizeUsers.define('users', {
     id_docente: {
         type: DataTypes.INTEGER,
@@ -41,5 +41,4 @@ const users = sequelizeUsers.define('users', {
     tableName: 'Docentes',  // Nombre de la tabla
     timestamps: false,      
 });
-
 module.exports = users;
