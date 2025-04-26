@@ -32,7 +32,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
     try {
-        const user = await User.findByPk(req.params.id);  // Buscar por ID
+        const user = await User.findByPk(req.params.id);  
 
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
