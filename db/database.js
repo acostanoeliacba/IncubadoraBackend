@@ -12,3 +12,4 @@ const sequelizeUsers = new Sequelize({
 });
 
 module.exports = { sequelizeUsers };
+
