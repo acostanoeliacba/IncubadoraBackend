@@ -1,7 +1,7 @@
 # IncubadoraBackend
 Proyecto Xacademy 2025
 
-Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de esta forma:
+Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma:
   
 ```markdown
   DB_HOST=localhost
@@ -34,4 +34,4 @@ Para hacer  solicitudes a la api localmente una ves que carguen la base de datos
 }
 ```
 
-si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio deben relizar validaciones para que los datos sean los esperados en el back
+si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el back.
