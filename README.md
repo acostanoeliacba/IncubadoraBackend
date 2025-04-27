@@ -3,12 +3,14 @@ Proyecto Xacademy 2025
 
 Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de esta forma:
   
+```markdown
   DB_HOST=localhost
   DB_USER=
   DB_PASS=
   DB_NAME=NOC
   DB_PORT=3307
 
+```
  para especificar el puerto que usan si tienen varios bases en sus pc  esta en 3307  pueden cambiarlo a 3306
 
 ### rutas:  http://localhost:3000/user/users  que deberia devolver usuarios cargados en sus bases respectivas
