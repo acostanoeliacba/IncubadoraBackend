@@ -50,7 +50,7 @@ const users = sequelizeUsers.define('users', {
     }
 },
 {
-    tableName: 'Docentes',  // Nombre de la tabla
+    tableName: 'Usuarios',  // Nombre de la tabla
     timestamps: false,      
 });
 module.exports = users;
