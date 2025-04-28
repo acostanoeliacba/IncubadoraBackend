@@ -5,7 +5,6 @@ const dotenv = require('dotenv');
 const { sequelizeUsers } = require('./db/database.js');
 
 const userRoutes = require('./routes/usersroutes');  // Rutas de usuarios
-const routes = require('./routes/index.js')
 
 
 dotenv.config(); 
@@ -22,7 +21,7 @@ app.use(cors());
 
 
 app.use('/user', userRoutes);
-app.use('/', routes );
+
 
 // Conectar con la base de datos y arrancar el servidor
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
