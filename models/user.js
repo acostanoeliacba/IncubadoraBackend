@@ -1,45 +1,56 @@
 const { DataTypes } = require('sequelize');
 const { sequelizeUsers } = require('../db/database.js');
-
+//tabla usuarios reemplasara a  tabla alumno y tabla docente
 const users = sequelizeUsers.define('users', {
-    id_docente: {
+    id_usuario: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true
     },
-    docenteName: {
+    nombre: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    docenteLastName: {
+    apellido: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    docenteEspeciality: {
+    fecha_nacimiento: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    direccion: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    docentePassword: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    docenteEmail: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    docenteTelefone: {
+    telefono: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    docenteDni: {
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    dni: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    especialidad: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    tipo_usuario: {
+        type: DataTypes.ENUM('alumno','docente'),
         allowNull: false,
     }
 },
 {
-    tableName: 'Docentes',  // Nombre de la tabla
+    tableName: 'Usuarios',  // Nombre de la tabla
     timestamps: false,      
 });
-
 module.exports = users;

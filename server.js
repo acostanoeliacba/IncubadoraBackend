@@ -7,20 +7,20 @@ const { sequelizeUsers } = require('./db/database.js');
 const userRoutes = require('./routes/usersroutes');  // Rutas de usuarios
 const routes = require('./routes/index.js')
 
-dotenv.config();  // Cargar variables de entorno
 
+dotenv.config(); 
 const app = express();
 
-// URL frontend Angular
+
 app.use(cors({
   origin: 'http://localhost:4200'  
 }));
 
 
 app.use(express.json());
-app.use(cors());  // Solo si es nesesario usar CORS
+app.use(cors());  
 
-// Rutas
+
 app.use('/user', userRoutes);
 app.use('/', routes );
 
