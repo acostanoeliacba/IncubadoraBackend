@@ -5,9 +5,9 @@ const perfildocente = require('../controllers/perfildocente')
 
 //router.get('/' , (req, res)=>{res.send('Perfil Docente')})
 router.get('/', perfildocente.getAllteachers);
-router.get('/:id_docente', perfildocente.getSingleTeacher);
+router.get('/:id_usuario', perfildocente.getSingleTeacher);
 router.post('/', perfildocente.createTeacher);
-router.put('/:id_docente', perfildocente.updateTeacher);
-router.delete('/:id_docente',perfildocente.deleteTeacher);
+router.put('/:id_usuario', perfildocente.updateTeacher);
+router.delete('/:id_usuario',perfildocente.deleteTeacher);
 
 module.exports = router;
