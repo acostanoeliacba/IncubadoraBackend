@@ -2,16 +2,15 @@ const Teacher = require("../models/user");
 const mysql = require("../db/database")
 const { validationResult } = require('express-validator');
 
-
 // recupera todos los docentes
-const getAllteachers = async (req, res, next) =>{
-  
+const getAllteachers = async (req, res, next) => {
     try {
-        const teachers = await Teacher.findAll()
+        const teachers = await Teacher.findAll({
+            where: { tipo_usuario: 'docente' }
+        });
         res.status(200).json(teachers);
-        
     } catch (error) {
-        next(error)
+        next(error);
     }
 };
 // recupera un solo docente
@@ -22,7 +21,7 @@ const getSingleTeacher = async (req, res, next) => {
         if (!Number.isInteger(Number(teacherId))) {
             return res.status(400).json({ error: "Usa un ID válido para encontrar al docente" });
         }
-        const teacher = await Teacher.findOne({ where: { id_usuario: teacherId } });
+        const teacher = await Teacher.findOne({ where: { id_usuario: teacherId, tipo_usuario: "docente" } });
 
         if (!teacher) {
             return res.status(400).json({ error: "Profesor no encontrado" });
@@ -106,7 +105,7 @@ const deleteTeacher = async (req, res, next) => {
    const teacherId = req.params.id_usuario;
 
    try {
-    const deleted = await Teacher.destroy({ where: { id_usuario: teacherId } });
+    const deleted = await Teacher.destroy({ where: { id_usuario: teacherId , tipo_usuario: "docente"} });
 
     if (deleted === 0) {
         return res.status(404).json({ error: 'Profesor no encontrado' });

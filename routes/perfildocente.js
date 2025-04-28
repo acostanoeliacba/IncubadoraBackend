@@ -3,7 +3,7 @@ const router = express.Router();
 const perfildocente = require('../controllers/perfildocente')
 
 
-//router.get('/' , (req, res)=>{res.send('Perfil Docente')})
+// router.get('/' , (req, res)=>{res.send('Perfil Docente')})
 router.get('/', perfildocente.getAllteachers);
 router.get('/:id_usuario', perfildocente.getSingleTeacher);
 router.post('/', perfildocente.createTeacher);
