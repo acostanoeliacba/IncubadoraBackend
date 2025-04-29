@@ -5,6 +5,7 @@ const usersController = require('../controllers/userscontrollers');
 const { userLoginValidations } = require('../controllers/userscontrollers');  
 const { verifyToken } = require('../controllers/userscontrollers');  
 const perfildocenteRoutes = require('../routes/perfildocente')
+const perfilalumnoRoutes = require('../routes/perfilalumno')
 
 
 router.post('/users/login', userLoginValidations,usersController.userLogin);  
@@ -17,5 +18,7 @@ router.put('/users/:id', usersController.updateUserById);
 
 
 router.use('/perfildocente', perfildocenteRoutes);
+
+router.use('/perfilalumno', perfilalumnoRoutes);
 
 module.exports = router;
