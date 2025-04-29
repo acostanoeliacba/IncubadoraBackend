@@ -23,7 +23,6 @@ Para hacer  solicitudes a la api localmente una ves que carguen la base de datos
   "nombre": "Lucas",
   "apellido": "Aristoteles",
   "fecha_nacimiento": "01/01/2000",
-  "dni": 13456002,
   "direccion":"villa maria 33",
   "telefono":"31155477",
   "email": "LucaAri@gmail.com",
@@ -35,3 +34,14 @@ Para hacer  solicitudes a la api localmente una ves que carguen la base de datos
 ```
 
 si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el back.
+
+### Pueden probar directamente el login desde consola, o usar postman localmente asi verifican que envia y se envia a ese endpoint:
+
+```Markdown
+usuario@usuario-pc1:~/proyectoNoc$    curl -X POST http://localhost:3000/user/users/login -H "Content-Type: application/json" -d '{"email": "calom@gmail.com","password": "youangri2"}'    
+
+{"message":"Login exitoso","user":{"id":2,"email":"calom@gmail.com"}}
+```
+ya ire definiendo que datos cargar en tabla ....
+
+
