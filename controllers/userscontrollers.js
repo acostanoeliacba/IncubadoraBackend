@@ -118,7 +118,6 @@ const userLogin = async (req, res) => {
 //       return res.status(401).json({ message: 'Credenciales password incorrecto' });
 //     }
 
-
 //     const token = jwt.sign({ email: user.email }, 'your-secret-key', { expiresIn: '3h' });
 //       res.json({ token });
 
