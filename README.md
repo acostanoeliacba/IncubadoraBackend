@@ -33,7 +33,7 @@ Para hacer  solicitudes a la api localmente una ves que carguen la base de datos
 }
 ```
 
-     Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el back.
+Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el BackEnd.
 
 ### Pueden probar directamente el login desde consola, o usar postman localmente asi verifican que envia y se envia a ese endpoint:
 
