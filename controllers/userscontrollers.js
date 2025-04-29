@@ -88,7 +88,10 @@ const userLogin = async (req, res) => {
       return res.status(401).json({ message: 'Credenciales incorrectas: password incorrecto' });
     }
 
-    res.json({ message: 'Login exitoso', user: { id: user.id_usuario, email: user.email } });
+    res.json({ message: 'Login exitoso', 
+             user: { id: user.id_usuario, nombre:user.nombre, apellido:user.apellido,email: user.email,
+                     fecha_nacimiento:user.fecha_nacimiento,direccion:user.direccion,
+                     telefono:user.telefono ,dni:user.dni, especialidad:user.especialidad,tipo_usuario:user.tipo_usuario} });
 
   } catch (error) {
     console.error(error);
