@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const User = require('../models/user');
+
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
@@ -76,6 +77,7 @@ const userLogin = async (req, res) => {
   }
 
   const { email, password } = req.body;
+  console.log('Datos recibidos:', req.body);
 
   try {
     const user = await User.findOne({ where: { email: email } });
@@ -101,59 +103,12 @@ const userLogin = async (req, res) => {
 
 
 
-// const userLogin = async(req, res) => {
-
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     return res.status(400).json({ errors: errors.array() });
-//   }
-
-//   const { email, password } = req.body;
-
-//   try {
-//   const user = await User.findOne({ where: { email: email } });
-
-//   if (!user) {
-//     return res.status(401).json({ message: 'Credenciales incorrectas email no encontrado' });
-//   }
-
-//     if (user.password !== password) {
-//       return res.status(401).json({ message: 'Credenciales password incorrecto' });
-//     }
-
-//     const token = jwt.sign({ email: user.email }, 'your-secret-key', { expiresIn: '3h' });
-//       res.json({ token });
-
-//  } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ message: 'Error en el servidor' });
-//   }  
-// };
-
-
-
-// function verifyToken(req, res, next) {
-//   const token = req.header('Authorization')?.split(' ')[1]; // El token suele estar en el encabezado Authorization
-
-//   if (!token) {
-//     return res.status(403).send('Acceso denegado');
-//   }
-
-//   jwt.verify(token, 'your-secret-key', (err, decoded) => {
-//     if (err) {
-//       return res.status(403).send('Token inválido');
-//     }
-//     req.user = decoded;
-//     next();
-//   });
-// }
-
 module.exports = {
     userLogin,
     userLoginValidations,
- //   verifyToken,
     createUser,
     getAllUsers,
     getUserById,
     updateUserById,
+
 };
