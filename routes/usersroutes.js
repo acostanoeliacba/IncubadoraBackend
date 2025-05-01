@@ -10,8 +10,10 @@ const pagosRoutes = require('../routes/pagosroutes')
 router.post('/users/login', userLoginValidations,usersController.userLogin);  
 router.post('/users', usersController.createUser);  
 router.get('/users', usersController.getAllUsers);  
-router.get('/users/:id', verifyToken,usersController.getUserById);  
-router.put('/users/:id', verifyToken,  usersController.updateUserById);  
+router.get('/users/:id', usersController.getUserById);  
+router.put('/users/:id', usersController.updateUserById);  
+// router.get('/users/:id', verifyToken,usersController.getUserById);  
+// router.put('/users/:id', verifyToken,  usersController.updateUserById);  
 
 
 router.use('/perfildocente', perfildocenteRoutes);

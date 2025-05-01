@@ -69,8 +69,7 @@ const userLoginValidations = [
     .isLength({ min: 4 }).withMessage('La contraseña debe tener al menos 6 caracteres.')
 ];
 
-const userLogin = async(req, res) => {
-
+const userLogin = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -79,48 +78,77 @@ const userLogin = async(req, res) => {
   const { email, password } = req.body;
 
   try {
-  const user = await User.findOne({ where: { user_email: email } });
+    const user = await User.findOne({ where: { email: email } });
 
-  if (!user) {
-    return res.status(401).json({ message: 'Credenciales incorrectas email no encontrado' });
-  }
-
-    if (user.user_password !== password) {
-      return res.status(401).json({ message: 'Credenciales password incorrecto' });
+    if (!user) {
+      return res.status(401).json({ message: 'Credenciales incorrectas: email no encontrado' });
     }
 
+    if (user.password !== password) {
+      return res.status(401).json({ message: 'Credenciales incorrectas: password incorrecto' });
+    }
 
-    const token = jwt.sign({ user_email: user.user_email }, 'your-secret-key', { expiresIn: '3h' });
-      res.json({ token });
+    res.json({ message: 'Login exitoso', user: { id: user.id_usuario, email: user.email } });
 
- } catch (error) {
+  } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error en el servidor' });
-  }  
+  }
 };
 
 
 
-function verifyToken(req, res, next) {
-  const token = req.header('Authorization')?.split(' ')[1]; // El token suele estar en el encabezado Authorization
+// const userLogin = async(req, res) => {
 
-  if (!token) {
-    return res.status(403).send('Acceso denegado');
-  }
+//   const errors = validationResult(req);
+//   if (!errors.isEmpty()) {
+//     return res.status(400).json({ errors: errors.array() });
+//   }
 
-  jwt.verify(token, 'your-secret-key', (err, decoded) => {
-    if (err) {
-      return res.status(403).send('Token inválido');
-    }
-    req.user = decoded;
-    next();
-  });
-}
+//   const { email, password } = req.body;
+
+//   try {
+//   const user = await User.findOne({ where: { email: email } });
+
+//   if (!user) {
+//     return res.status(401).json({ message: 'Credenciales incorrectas email no encontrado' });
+//   }
+
+//     if (user.password !== password) {
+//       return res.status(401).json({ message: 'Credenciales password incorrecto' });
+//     }
+
+//     const token = jwt.sign({ email: user.email }, 'your-secret-key', { expiresIn: '3h' });
+//       res.json({ token });
+
+//  } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: 'Error en el servidor' });
+//   }  
+// };
+
+
+
+// function verifyToken(req, res, next) {
+//   const token = req.header('Authorization')?.split(' ')[1]; // El token suele estar en el encabezado Authorization
+
+//   if (!token) {
+//     return res.status(403).send('Acceso denegado');
+//   }
+
+//   jwt.verify(token, 'your-secret-key', (err, decoded) => {
+//     if (err) {
+//       return res.status(403).send('Token inválido');
+//     }
+//     req.user = decoded;
+//     next();
+//   });
+// }
 
 module.exports = {
     userLogin,
     userLoginValidations,
-    verifyToken,
+ //   verifyToken,
     createUser,
     getAllUsers,
     getUserById,
