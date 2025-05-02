@@ -6,6 +6,7 @@ const { userLoginValidations } = require('../controllers/userscontrollers');
 const { verifyToken } = require('../controllers/userscontrollers');  
 const perfildocenteRoutes = require('../routes/perfildocente')
 const pagosRoutes = require('../routes/pagosroutes')
+const passport = require('passport');
 
 router.post('/users/login', userLoginValidations,usersController.userLogin);  
 router.post('/users', usersController.createUser);  
@@ -17,6 +18,15 @@ router.put('/users/:id', usersController.updateUserById);
 
 
 router.use('/perfildocente', perfildocenteRoutes);
-router.use('/pagos', pagosRoutes );
+router.use('/pagos', pagosRoutes);
+
+router.get('/users/login', passport.authenticate('github'),(req,res)=>{});
+router.get('/logout' , function(req , res,next)
+{
+    req.logout(function(err){
+        if(err){return next(err);}
+        res.redirect('/')
+    });
+});
 
 module.exports = router;
