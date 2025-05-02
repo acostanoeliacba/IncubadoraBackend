@@ -20,6 +20,7 @@ app.use(cors({
 
 
 app.use(express.json());
+// app.use(cors()); 
 app.use(session({
     secret:'secret',
     resave:false,
@@ -30,10 +31,9 @@ app.use(passport.initialize())
 // iniciar passport en cada ruta llamada
 app.use(passport.session())
 
-app.use(cors());  
-
 
 app.use('/user', userRoutes);
+
 // para la autenticacion
 passport.use(new GitHubStrategy({
     clientID : process.env.GITHUB_CLIENT_ID,
@@ -51,13 +51,13 @@ passport.use(new GitHubStrategy({
   passport.deserializeUser((user , done)=>{
     done(null ,user);})  
 
-app.get('/',(req ,res)=>{res.send(req.session.user !== undefined ?`Logged in as ${req.session.user.displayName}`:'Logged out')})
+app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
 
 app.get('/github/callback', passport.authenticate('github',{
     failureRedirect :'/users/login',session :false}),
     (req , res)=>{
     req.session.user = req.user;
-    res.redirect('/');
+    res.redirect('/user');
 
 });
 

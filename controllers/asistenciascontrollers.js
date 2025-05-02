@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const Asist = require('../models/asist');
+const Asist = require('../models/asistencias');
 const { body, validationResult } = require('express-validator');
 const bodyParser = require('body-parser');
 

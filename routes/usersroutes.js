@@ -2,6 +2,8 @@
 const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/userscontrollers');
+const inscripcionesController = require('../controllers/inscripcionescontrollers');
+
 const { userLoginValidations } = require('../controllers/userscontrollers');  
 const { verifyToken } = require('../controllers/userscontrollers');  
 const perfildocenteRoutes = require('../routes/perfildocente')
@@ -13,6 +15,7 @@ router.post('/users', usersController.createUser);
 router.get('/users', usersController.getAllUsers);  
 router.get('/users/:id', usersController.getUserById);  
 router.put('/users/:id', usersController.updateUserById);  
+router.post('/users/inscripcion', inscripcionesController.cargaInscripcion);  
 // router.get('/users/:id', verifyToken,usersController.getUserById);  
 // router.put('/users/:id', verifyToken,  usersController.updateUserById);  
 
@@ -21,7 +24,7 @@ router.use('/perfildocente', perfildocenteRoutes);
 router.use('/pagos', pagosRoutes);
 
 router.get('/users/login', passport.authenticate('github'),(req,res)=>{});
-router.get('/logout' , function(req , res,next)
+router.get('/users/logout' , function(req , res,next)
 {
     req.logout(function(err){
         if(err){return next(err);}
