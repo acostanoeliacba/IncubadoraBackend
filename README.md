@@ -96,5 +96,17 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 
 ```
 
+### Seccion Login desde con la autorizacion de GitHub
+```Markdown
+| Método | Descripción                   | URL completa 
 
+| GET    | Logearse con Github  | `http://localhost:3000/user/login
+| GET    | Cerrar Session con Github  | `http://localhost:3000/user/logout
 
+### Seccion Pagos(acceso unicamente si estas autenticado)
+
+```Markdown
+| Método | Descripción                   | URL completa 
+
+| GET    | Obtener todos los pagos   | `http://localhost:3000/user/pagos
+| GET    | Obtener los pagos por usuario id | `http://localhost:3000/user/pagos/2
