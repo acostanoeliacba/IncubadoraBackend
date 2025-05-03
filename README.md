@@ -48,8 +48,8 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | GET    | Obtener un usuario por ID    | `http://localhost:3000/user/findById/123` *( con ID 123)* |
 | PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/update/123` *( con ID 123)*   |
 | DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/delete/123` *( con ID 123)*   |
-| PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/perfildocente`                |
-| DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/perfilalumno`                 |
+|        | Perfil del Docente           | `http://localhost:3000/user/perfildocente`                |
+|        | Perfil del Alumno            | `http://localhost:3000/user/perfilalumno`                 |
 
 ```
 ### Seccion Inscripciones
