@@ -1,12 +1,12 @@
 const { Op } = require('sequelize');
-const Asist = require('../models/asistencias');
+const Asistencia = require('../models/asistencias');
 const { body, validationResult } = require('express-validator');
 const bodyParser = require('body-parser');
 
 
 const chargeAsist = async (req, res) => {
     try{
-        const newAsist = await Asist.create(req.body);
+        const newAsist = await Asistencia.create(req.body);
         res.status(201).json(newAsist);
     } catch (error) {
         console.error(error);
@@ -16,7 +16,7 @@ const chargeAsist = async (req, res) => {
 
 const getAllAsist = async (req, res) => {
     try {
-        const asists = await Asist.findAll(); // Obtener lista de asistencias
+        const asists = await Asistencia.findAll(); // Obtener lista de asistencias
 
         if (asists.length === 0) {
             return res.status(404).json({ message: 'No hay asistencias cargadas' });
@@ -31,7 +31,7 @@ const getAllAsist = async (req, res) => {
 
 const getAsistById = async (req, res) => {
     try {
-        const asist = await Asist.findByPk(req.params.id); 
+        const asist = await Asistencia.findByPk(req.params.id); 
 
         if (!asist) {
             return res.status(404).json({ message: 'Asistencia no encontrada' });
@@ -48,7 +48,7 @@ const getAsistById = async (req, res) => {
 const updateAsistById = async (req, res) => {
     const { id } = req.params;
     try {
-        const asist = await Asist.findByPk(id);
+        const asist = await Asistencia.findByPk(id);
         if (!asist) {
             return   res.status(404).json({ message: 'Asistencia no encontrado' });
         }
