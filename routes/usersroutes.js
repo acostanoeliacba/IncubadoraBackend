@@ -5,6 +5,7 @@ const router = express.Router();
 const usersController = require('../controllers/userscontrollers');
 const perfildocenteRoutes = require('../routes/perfildocente')
 const perfilalumnoRoutes = require('../routes/perfilalumno')
+const pagosRoutes = require('../routes/pagosroutes')
 
 const { validateDeleteUsuario } = require('../validations/usuarioValidation');
 const { userLoginValidations } = require('../validations/usuarioValidation');
@@ -19,5 +20,6 @@ router.delete('/delete/:id', validateDeleteUsuario, usersController.deleteUsuari
 
 router.use('/perfildocente', perfildocenteRoutes);
 router.use('/perfilalumno', perfilalumnoRoutes);
+router.use('/pagos', pagosRoutes);
 
 module.exports = router;
