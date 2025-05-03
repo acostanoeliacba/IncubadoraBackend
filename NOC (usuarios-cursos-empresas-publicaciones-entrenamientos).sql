@@ -1,3 +1,7 @@
+
+-- Tiempo de generación: 03-05-2025 a las 19:23:51
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -19,6 +23,8 @@ USE `NOC`;
 --
 -- Estructura de tabla para la tabla `Asistencia`
 --
+-- Creación: 23-04-2025 a las 02:52:59
+--
 
 CREATE TABLE `Asistencia` (
   `id_asistencia` int(11) NOT NULL,
@@ -37,6 +43,8 @@ CREATE TABLE `Asistencia` (
 
 --
 -- Estructura de tabla para la tabla `CondicionesAprobacion`
+--
+-- Creación: 23-04-2025 a las 02:52:59
 --
 
 CREATE TABLE `CondicionesAprobacion` (
@@ -57,6 +65,8 @@ CREATE TABLE `CondicionesAprobacion` (
 --
 -- Estructura de tabla para la tabla `CursoCredito`
 --
+-- Creación: 23-04-2025 a las 02:52:59
+--
 
 CREATE TABLE `CursoCredito` (
   `id_curso` int(11) NOT NULL,
@@ -75,6 +85,8 @@ CREATE TABLE `CursoCredito` (
 
 --
 -- Estructura de tabla para la tabla `Cursos`
+--
+-- Creación: 23-04-2025 a las 02:52:59
 --
 
 CREATE TABLE `Cursos` (
@@ -111,6 +123,8 @@ INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `ti
 --
 -- Estructura de tabla para la tabla `DocenteCurso`
 --
+-- Creación: 26-04-2025 a las 21:59:39
+--
 
 CREATE TABLE `DocenteCurso` (
   `id_usuario` int(11) NOT NULL,
@@ -145,6 +159,8 @@ INSERT INTO `DocenteCurso` (`id_usuario`, `id_curso`) VALUES
 --
 -- Estructura de tabla para la tabla `Empresas`
 --
+-- Creación: 23-04-2025 a las 02:52:59
+--
 
 CREATE TABLE `Empresas` (
   `id_empresa` int(11) NOT NULL,
@@ -175,6 +191,8 @@ INSERT INTO `Empresas` (`id_empresa`, `nombre_empresa`, `descripcion`, `contacto
 --
 -- Estructura de tabla para la tabla `EntrenamientosLaborales`
 --
+-- Creación: 23-04-2025 a las 02:52:59
+--
 
 CREATE TABLE `EntrenamientosLaborales` (
   `id_entrenamiento` int(11) NOT NULL,
@@ -191,10 +209,22 @@ CREATE TABLE `EntrenamientosLaborales` (
 --       `Empresas` -> `id_empresa`
 --
 
+--
+-- Volcado de datos para la tabla `EntrenamientosLaborales`
+--
+
+INSERT INTO `EntrenamientosLaborales` (`id_entrenamiento`, `nombre_entrenamiento`, `descripcion`, `empresa_id`, `fecha_inicio`, `fecha_fin`) VALUES
+(1, 'Entrenamiento en React', 'Curso intensivo de React para desarrolladores frontend.', 1, '2025-06-01', '2025-06-15'),
+(2, 'Bootcamp Fullstack', 'Entrenamiento fullstack con Node.js y Angular.', 2, '2025-07-01', '2025-07-30'),
+(3, 'Capacitación en Bases de Datos', 'MySQL, modelado de datos y optimización de consultas.', 1, '2025-08-10', '2025-08-20'),
+(4, 'DevOps Essentials', 'Automatización, integración continua y despliegue.', 2, '2025-09-01', '2025-09-15');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Inscripciones`
+--
+-- Creación: 26-04-2025 a las 21:59:12
 --
 
 CREATE TABLE `Inscripciones` (
@@ -223,12 +253,18 @@ INSERT INTO `Inscripciones` (`id_inscripcion`, `id_usuario`, `id_curso`, `fecha_
 (4, 4, 2, '2025-04-13'),
 (5, 5, 4, '2025-04-14'),
 (6, 6, 6, '2025-04-15'),
-(7, 7, 7, '2025-04-16');
+(7, 7, 7, '2025-04-16'),
+(8, 1, 2, '2025-04-30'),
+(9, 1, 2, '2025-04-30'),
+(10, 2, 4, '2025-04-30'),
+(11, 2, 4, '2025-04-30');
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Pagos`
+--
+-- Creación: 26-04-2025 a las 21:59:12
 --
 
 CREATE TABLE `Pagos` (
@@ -252,6 +288,8 @@ CREATE TABLE `Pagos` (
 --
 -- Estructura de tabla para la tabla `ProgramasCredito`
 --
+-- Creación: 23-04-2025 a las 02:52:59
+--
 
 CREATE TABLE `ProgramasCredito` (
   `id_programa` int(11) NOT NULL,
@@ -271,6 +309,8 @@ CREATE TABLE `ProgramasCredito` (
 --
 -- Estructura de tabla para la tabla `Publicaciones`
 --
+-- Creación: 23-04-2025 a las 02:52:59
+--
 
 CREATE TABLE `Publicaciones` (
   `id_publicacion` int(11) NOT NULL,
@@ -285,10 +325,22 @@ CREATE TABLE `Publicaciones` (
 -- RELACIONES PARA LA TABLA `Publicaciones`:
 --
 
+--
+-- Volcado de datos para la tabla `Publicaciones`
+--
+
+INSERT INTO `Publicaciones` (`id_publicacion`, `titulo`, `contenido`, `fecha_publicacion`, `tipo`, `estado`) VALUES
+(1, 'Curso de Node.js con Sequelize', 'Aprende a desarrollar APIs REST con Node y Sequelize.', '2025-05-01', 'curso', 'activo'),
+(2, 'Capacitación en Angular', 'Frontend avanzado con Angular y consumo de APIs.', '2025-05-02', 'capacitacion', 'activo'),
+(3, 'Entrenamiento Fullstack', 'Entrenamiento intensivo para desarrolladores fullstack.', '2025-05-03', 'entrenamiento', 'inactivo'),
+(4, 'Curso de MySQL Avanzado', 'Profundiza en consultas complejas y optimización.', '2025-05-04', 'curso', 'activo');
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `Usuarios`
+--
+-- Creación: 26-04-2025 a las 21:50:54
 --
 
 CREATE TABLE `Usuarios` (
@@ -328,7 +380,9 @@ INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_nacimiento`, 
 (12, 'Valeria', 'Luna', '1979-06-14', 'Diagonal Norte 800', '1166666666', 'valeria.luna@gmail.com', 'valeria123', 31000006, 'Pintura', 'docente'),
 (13, 'Esteban', 'Domínguez', '1983-07-22', 'Calle 12 Nº 2200', '1167777777', 'esteban.dominguez@gmail.com', 'esteban123', 31000007, 'Administración', 'docente'),
 (14, 'Carolina', 'Silva', '1981-08-19', 'Calle Letras 155', '1168888888', 'carolina.silva@gmail.com', 'carolina123', 31000008, 'Caligrafía', 'docente'),
-(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javier.torres@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente');
+(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javier.torres@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente'),
+(16, 'Luciana', 'Montañes', '1986-06-02', 'villa maria 196', '311569874', 'luciana@gmail.com', 'licia2000', 33564897, 'Pintura', 'docente'),
+(17, ']Juana', 'Maria', '1999-04-05', 'villa Maria 5767', '45565444', 'maria2025@gmail.com', 'passmaria', 42569784, 'Pintura', 'alumno');
 
 --
 -- Índices para tablas volcadas
@@ -447,13 +501,13 @@ ALTER TABLE `Empresas`
 -- AUTO_INCREMENT de la tabla `EntrenamientosLaborales`
 --
 ALTER TABLE `EntrenamientosLaborales`
-  MODIFY `id_entrenamiento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_entrenamiento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `Inscripciones`
 --
 ALTER TABLE `Inscripciones`
-  MODIFY `id_inscripcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_inscripcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `Pagos`
@@ -471,13 +525,13 @@ ALTER TABLE `ProgramasCredito`
 -- AUTO_INCREMENT de la tabla `Publicaciones`
 --
 ALTER TABLE `Publicaciones`
-  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_publicacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `Usuarios`
 --
 ALTER TABLE `Usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas
