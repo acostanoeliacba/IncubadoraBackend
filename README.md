@@ -13,9 +13,9 @@ Proyecto Xacademy 2025
   DB_PORT=3307
 
 ```
-***Para correr el proyecto desde consola:  npm run dev
+Para correr el proyecto desde consola:  npm run dev
 
-## Ejemplo de valores devueltos y representativos de la estructura de la tabla Usuarios
+Valores devueltos ejemplo( http://localhost:3000/user/findById/2 )
 
 ```markdown
 {
@@ -34,9 +34,9 @@ Proyecto Xacademy 2025
 
 Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el BackEnd.
 
-###  ***Pueden revisar si se estan conectando a la base de datos  ingresando las siguientes rutas en el navegador:*** 
+##  Pueden revisar si se estan conectando a la base de datos  ingresando las siguientes rutas en el navegador: 
 
-## Seccion Usuario
+### Seccion Usuario
 
 ```Markdown 
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
@@ -49,7 +49,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/delete/123` *( con ID 123)*   |
 
 ```
-## Seccion Inscripciones
+### Seccion Inscripciones
 ```Markdown
 | Método | Descripción                       | URL completa (HTTP)                                   |
 | ------ | --------------------------------- | ----------------------------------------------------- |
@@ -60,7 +60,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
 
 ```
-## Seccion Cursos
+### Seccion Cursos
 ```Markdown
 | Método | Descripción                | URL completa (HTTP)                            |
 | ------ | -------------------------- | ---------------------------------------------- |
@@ -70,7 +70,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | DELETE | Eliminar un curso por ID   | `http://localhost:3000/cursos/123` *(ejemplo)* |
 
 ```
-## Seccion Empresas
+### Seccion Empresas
 ```Markdown
 | Método | Descripción                   | URL completa (HTTP)                                         |
 | ------ | ----------------------------- | ----------------------------------------------------------- |
@@ -80,7 +80,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | DELETE | Eliminar una empresa por ID   | `http://localhost:3000/empresas/123` *(con ID 123)* |
 
 ```
-## Seccion Publicaciones
+### Seccion Publicaciones
 ```Markdown
 | Método | Descripción                       | URL completa (HTTP)                                              |
 | ------ | --------------------------------- | ---------------------------------------------------------------- |
