@@ -17,8 +17,26 @@ const createUser = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
+ 
+    const { nombre, dni, id_inscripcion } = req.query;
+
+    const whereConditions = {};
+
+  //Las uso solo si se envian como parametros
+    if (nombre) {
+        whereConditions.nombre = { [Op.like]: `%${nombre}%` }; // búsqueda parcial
+    }
+
+    if (dni) {
+        whereConditions.dni = dni;
+    }
+
+    if (id_inscripcion) {
+        whereConditions.id_inscripcion = id_inscripcion;
+    }
+
     try {
-        const users = await User.findAll(); 
+        const users = await User.findAll({ where: whereConditions });
 
         if (users.length === 0) {
             return res.status(404).json({ message: 'No se encontraron usuarios' });
@@ -27,9 +45,11 @@ const getAllUsers = async (req, res) => {
         res.status(200).json(users);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error al obtener los usuarios' });
+        res.status(500).json({ message: 'Error al obtener los usuarios', details: error.message });
     }
+
 };
+
 
 const getUserById = async (req, res) => {
     try {
@@ -59,6 +79,29 @@ const updateUserById = async (req, res) => {
         res.status(500).json({ message: 'Error al actualizar el usuario' });
     }
 };
+
+const deleteUsuario = async (req, res, next) => {
+   const errors = validationResult(req);
+
+   if (!errors.isEmpty()) {
+       return res.status(400).json({ errors: errors.array() });
+   }
+
+   const usuarioId = req.params.id;
+
+   try {
+    const deleted = await User.destroy({ where: { id_usuario: usuarioId } });
+
+    if (deleted === 0) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.status(204).send();
+} catch (error) {
+    res.status(500).json({ error: 'Error al eliminar Usuario ', details: error.message });
+}
+};
+
 
 //**************************
 const userLoginValidations = [
@@ -108,7 +151,9 @@ module.exports = {
     userLoginValidations,
     createUser,
     getAllUsers,
+//    buscarUsersFiltrados,
     getUserById,
     updateUserById,
+    deleteUsuario
 
 };

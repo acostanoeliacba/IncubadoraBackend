@@ -1,7 +1,9 @@
 # IncubadoraBackend
 Proyecto Xacademy 2025
 
-Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma:
+## Instrucciones Creacion base de datos y back End en sus Entornos
+
+***Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma( para especificar el puerto que usan si tienen varios bases de datos  en sus pc  esta en 3307  pueden cambiarlo a 3306):
   
 ```markdown
   DB_HOST=localhost
@@ -11,43 +13,88 @@ Para hacer  solicitudes a la api localmente una ves que carguen la base de datos
   DB_PORT=3307
 
 ```
- para especificar el puerto que usan si tienen varios bases en sus pc  esta en 3307  pueden cambiarlo a 3306
+Para correr el proyecto desde consola:  npm run dev
 
-### rutas:  http://localhost:3000/user/users  que deberia devolver usuarios cargados en sus bases respectivas
- He cambiado la estructura de la base de datos y cambiado el nombre de los campos  ahora ,solo existe la tabla usuarios esta tabla  almacena los datos de los usuarios de la plataforma, recuerden al momento de cargar datos que estos deben tener definida el tipo de usuario entre: *alumno* o *docente* solo esos valores
- el codigo   sql ya tiene incluida la estructura nueva de la tabla que pueden usar para cargar datos desde el formulario de registro o para el login siguiendo estos valores de ejemplo:
-
+Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ```markdown
 {
-  "nombre": "Lucas",
-  "apellido": "Aristoteles",
-  "fecha_nacimiento": "01/01/2000",
-  "direccion":"villa maria 33",
-  "telefono":"31155477",
-  "email": "LucaAri@gmail.com",
-  "password": "youtube24",
-  "dni": 12345678,
-  "especialidad":"",
+  "id_usuario": 4,
+  "nombre": "Carlos",
+  "apellido": "Gómez",
+  "fecha_nacimiento": "2004-10-22",
+  "direccion": "Av. Rivadavia 456",
+  "telefono": "1134567890",
+  "email": "carlos.gomez@gmail.com",
+  "password": "carlos123",
+  "dni": 40234567,
+  "especialidad": null,
   "tipo_usuario": "alumno"
 }
 ```
 
 Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el BackEnd.
 
-### Pueden probar directamente el login desde consola, o usar postman localmente asi verifican que envia y se envia a ese endpoint:
+![Base de datos Estrucutura](assets/Xacademy-Noc-Usuarios.png)
 
-***antes pueden revisar si tienen datos cargados en tabla ingresando la ruta en el navegador: http://localhost:3000/user/users   les mostrara todo lo guardado 
-***
+##  Pueden revisar si se estan conectando a la base de datos  ingresando las siguientes rutas en el navegador: 
 
-***Luego deben usar curl o postman ya que el navegador solo permite solicitudes get por eso usar consola o postman local o app similar
-***
+### Seccion Usuario
 
-```Markdown
-usuario@usuario-pc1:~/proyectoNoc$    curl -X POST http://localhost:3000/user/users/login -H "Content-Type: application/json" -d '{"email": "calom@gmail.com","password": "youangri2"}'    
+```Markdown 
+| Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
+| ------ | ---------------------------- | ----------------------------------------------------------------- |
+| POST   | Iniciar sesión               | `http://localhost:3000/user/login`                               |
+| POST   | Crear un nuevo usuario       | `http://localhost:3000/user/create`                              |
+| GET    | Obtener todos los usuarios   | `http://localhost:3000/user/find` (por dni,nombre similar),id_inscripcion; por omicion todos )    |
+| GET    | Obtener un usuario por ID    | `http://localhost:3000/user/findById/123` *( con ID 123)* |
+| PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/update/123` *( con ID 123)*   |
+| DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/delete/123` *( con ID 123)*   |
+|        | Perfil del Docente           | `http://localhost:3000/user/perfildocente`                |
+|        | Perfil del Alumno            | `http://localhost:3000/user/perfilalumno`                 |
 
-{"message":"Login exitoso","user":{"id":2,"email":"calom@gmail.com"}}
 ```
-ya ire definiendo que datos cargar en tabla ....
+### Seccion Inscripciones
+```Markdown
+| Método | Descripción                       | URL completa (HTTP)                                   |
+| ------ | --------------------------------- | ----------------------------------------------------- |
+| POST   | Crear una inscripción             | `http://localhost:3000/inscripciones`                 |
+| GET    | Obtener todas las inscripciones   | `http://localhost:3000/inscripciones`                 |
+| GET    | Obtener una inscripción por ID    | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
+| PUT    | Actualizar una inscripción por ID | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
+| DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
+
+```
+### Seccion Cursos
+```Markdown
+| Método | Descripción                | URL completa (HTTP)                            |
+| ------ | -------------------------- | ---------------------------------------------- |
+| GET    | Obtener todos los cursos   | `http://localhost:3000/cursos`                 |
+| POST   | Crear un nuevo curso       | `http://localhost:3000/cursos`                 |
+| PUT    | Actualizar un curso por ID | `http://localhost:3000/cursos/123` *(ejemplo)* |
+| DELETE | Eliminar un curso por ID   | `http://localhost:3000/cursos/123` *(ejemplo)* |
+
+```
+### Seccion Empresas
+```Markdown
+| Método | Descripción                   | URL completa (HTTP)                                         |
+| ------ | ----------------------------- | ----------------------------------------------------------- |
+| GET    | Obtener todas las empresas    | `http://localhost:3000/empresas`                            |
+| POST   | Crear una nueva empresa       | `http://localhost:3000/empresas`                            |
+| PUT    | Actualizar una empresa por ID | `http://localhost:3000/empresas/123` *(con ID 123)* |
+| DELETE | Eliminar una empresa por ID   | `http://localhost:3000/empresas/123` *(con ID 123)* |
+
+```
+### Seccion Publicaciones
+```Markdown
+| Método | Descripción                       | URL completa (HTTP)                                              |
+| ------ | --------------------------------- | ---------------------------------------------------------------- |
+| GET    | Obtener todas las publicaciones   | `http://localhost:3000/publicaciones`                            |
+| POST   | Crear una nueva publicación       | `http://localhost:3000/publicaciones`                            |
+| PUT    | Actualizar una publicación por ID | `http://localhost:3000/publicaciones/123` *( con ID 123)* |
+| DELETE | Eliminar una publicación por ID   | `http://localhost:3000/publicaciones/123` *( con ID 123)* |
+
+```
+
 
 
