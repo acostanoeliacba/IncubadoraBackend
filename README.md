@@ -1,35 +1,36 @@
 # IncubadoraBackend
+
 Proyecto Xacademy 2025
 
 ## Instrucciones Creacion base de datos y back End en sus Entornos
 
-***Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma( para especificar el puerto que usan si tienen varios bases de datos  en sus pc  esta en 3307  pueden cambiarlo a 3306):
-  
-```markdown
-  DB_HOST=localhost
-  DB_USER=
-  DB_PASS=
-  DB_NAME=NOC
-  DB_PORT=3307
+\*\*\*Para hacer solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma( para especificar el puerto que usan si tienen varios bases de datos en sus pc esta en 3307 pueden cambiarlo a 3306):
 
+```markdown
+DB_HOST=localhost
+DB_USER=
+DB_PASS=
+DB_NAME=NOC
+DB_PORT=3307
 ```
-Para correr el proyecto desde consola:  npm run dev
+
+Para correr el proyecto desde consola: npm run dev
 
 Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ```markdown
 {
-  "id_usuario": 4,
-  "nombre": "Carlos",
-  "apellido": "Gómez",
-  "fecha_nacimiento": "2004-10-22",
-  "direccion": "Av. Rivadavia 456",
-  "telefono": "1134567890",
-  "email": "carlos.gomez@gmail.com",
-  "password": "carlos123",
-  "dni": 40234567,
-  "especialidad": null,
-  "tipo_usuario": "alumno"
+"id_usuario": 4,
+"nombre": "Carlos",
+"apellido": "Gómez",
+"fecha_nacimiento": "2004-10-22",
+"direccion": "Av. Rivadavia 456",
+"telefono": "1134567890",
+"email": "carlos.gomez@gmail.com",
+"password": "carlos123",
+"dni": 40234567,
+"especialidad": null,
+"tipo_usuario": "alumno"
 }
 ```
 
@@ -37,11 +38,11 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 
 ![Base de datos Estrucutura](assets/Xacademy-Noc-Usuarios.png)
 
-##  Pueden revisar si se estan conectando a la base de datos  ingresando las siguientes rutas en el navegador: 
+## Pueden revisar si se estan conectando a la base de datos ingresando las siguientes rutas en el navegador:
 
 ### Seccion Usuario
 
-```Markdown 
+```Markdown
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
 | POST   | Iniciar sesión               | `http://localhost:3000/user/login`                               |
@@ -54,7 +55,9 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 |        | Perfil del Alumno            | `http://localhost:3000/user/perfilalumno`                 |
 
 ```
+
 ### Seccion Inscripciones
+
 ```Markdown
 | Método | Descripción                       | URL completa (HTTP)                                   |
 | ------ | --------------------------------- | ----------------------------------------------------- |
@@ -65,7 +68,9 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
 
 ```
+
 ### Seccion Cursos
+
 ```Markdown
 | Método | Descripción                | URL completa (HTTP)                            |
 | ------ | -------------------------- | ---------------------------------------------- |
@@ -75,7 +80,9 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | DELETE | Eliminar un curso por ID   | `http://localhost:3000/cursos/123` *(ejemplo)* |
 
 ```
+
 ### Seccion Empresas
+
 ```Markdown
 | Método | Descripción                   | URL completa (HTTP)                                         |
 | ------ | ----------------------------- | ----------------------------------------------------------- |
@@ -85,7 +92,9 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | DELETE | Eliminar una empresa por ID   | `http://localhost:3000/empresas/123` *(con ID 123)* |
 
 ```
+
 ### Seccion Publicaciones
+
 ```Markdown
 | Método | Descripción                       | URL completa (HTTP)                                              |
 | ------ | --------------------------------- | ---------------------------------------------------------------- |
@@ -96,17 +105,19 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 
 ```
 
-### Seccion Login desde con la autorizacion de GitHub
-```Markdown
-| Método | Descripción                   | URL completa 
+### Seccion Login con la autorizacion de GitHub
 
-| GET    | Logearse con Github  | `http://localhost:3000/user/login
-| GET    | Cerrar Session con Github  | `http://localhost:3000/user/logout
+````Markdown
+| Método | Descripción                    | URL completa (HTTP)                                             |
+| ------ | -------------------------------| ------------------------------------------------------------------------------- |
+
+| GET    | Logearse con Github             | `http://localhost:3000/user/login
+| GET    | Cerrar Session con Github       | `http://localhost:3000/user/logout
 
 ### Seccion Pagos(acceso unicamente si estas autenticado)
-
 ```Markdown
-| Método | Descripción                   | URL completa 
-
-| GET    | Obtener todos los pagos   | `http://localhost:3000/user/pagos
+| Método | Descripción                      | URL completa (HTTP)                                             |
+| ------ | -------------------------------  | -------------------------------------------------------------------------------
+| GET    | Obtener todos los pagos          | `http://localhost:3000/user/pagos
 | GET    | Obtener los pagos por usuario id | `http://localhost:3000/user/pagos/2
+````
