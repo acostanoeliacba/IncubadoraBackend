@@ -15,19 +15,20 @@ Proyecto Xacademy 2025
 ```
 Para correr el proyecto desde consola:  npm run dev
 
-Valores devueltos ejemplo( http://localhost:3000/user/findById/2 )
+Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ```markdown
 {
-  "nombre": "Lucas",
-  "apellido": "Aristoteles",
-  "fecha_nacimiento": "01/01/2000",
-  "direccion":"villa maria 33",
-  "telefono":"31155477",
-  "email": "LucaAri@gmail.com",
-  "password": "youtube24",
-  "dni": 12345678,
-  "especialidad":"",
+  "id_usuario": 4,
+  "nombre": "Carlos",
+  "apellido": "Gómez",
+  "fecha_nacimiento": "2004-10-22",
+  "direccion": "Av. Rivadavia 456",
+  "telefono": "1134567890",
+  "email": "carlos.gomez@gmail.com",
+  "password": "carlos123",
+  "dni": 40234567,
+  "especialidad": null,
   "tipo_usuario": "alumno"
 }
 ```
