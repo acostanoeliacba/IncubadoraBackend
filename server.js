@@ -3,6 +3,9 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { sequelizeUsers } = require('./db/database.js');
+const passport = require('passport');
+const session = require('express-session');
+const GitHubStrategy = require('passport-github2').Strategy;
 
 const userRoutes = require('./routes/usersroutes');
 const cursosRoutes = require('./routes/cursosroutes');  
@@ -19,7 +22,16 @@ app.use(cors({
 }));
 
 app.use(express.json());
-//app.use(cors());  
+// app.use(cors()); 
+app.use(session({
+    secret:'secret',
+    resave:false,
+    saveUninitialized :true,
+
+}))
+app.use(passport.initialize())
+// iniciar passport en cada ruta llamada
+app.use(passport.session())
 
 app.use('/user', userRoutes);
 app.use('/cursos', cursosRoutes);
@@ -27,6 +39,33 @@ app.use('/empresas', empresasRoutes);
 app.use('/publicaciones', publicacionesRoutes);
 app.use('/entrenamientos', entrenamientosRoutes);
 app.use('/inscripciones', inscripcionesRoutes);
+
+// para la autenticacion
+passport.use(new GitHubStrategy({
+    clientID : process.env.GITHUB_CLIENT_ID,
+    clientSecret :process.env.GITHUB_CLIENT_SECRET,
+    callbackURL : process.env.CALLBACK_URL
+ },
+  function(accessToken , refreshToken ,profile ,done){
+    return done(null,profile);
+
+  }));
+
+
+  passport.serializeUser((user , done)=>{
+    done(null ,user);})
+  passport.deserializeUser((user , done)=>{
+    done(null ,user);})  
+
+app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
+
+app.get('/github/callback', passport.authenticate('github',{
+    failureRedirect :'/users/login',session :false}),
+    (req , res)=>{
+    req.session.user = req.user;
+    res.redirect('/user');
+
+});
 
 
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
