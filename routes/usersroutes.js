@@ -16,7 +16,6 @@ router.get('/find', usersController.getAllUsers);
 router.get('/findById/:id', usersController.getUserById);  
 router.put('/update/:id', usersController.updateUserById);  
 router.delete('/delete/:id', validateDeleteUsuario, usersController.deleteUsuario);
-
 router.use('/perfildocente', perfildocenteRoutes);
 router.use('/perfilalumno', perfilalumnoRoutes);
 
