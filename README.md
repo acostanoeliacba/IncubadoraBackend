@@ -39,16 +39,14 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 ## Seccion Usuario
 
 ```Markdown 
-| Método | Descripción                | URL para consumir desde el navegador         |
-| ------ | -------------------------- | -------------------------------------------------------- |
-| POST   | Login de usuario           | `http://localhost:3000/users/login`                      |
-| POST   | Crear usuario              | `http://localhost:3000/users`                            |
-| GET    | Obtener todos los usuarios | `http://localhost:3000/users`                            |
-| GET    | Obtener usuario por ID     | `http://localhost:3000/users/123` *(no uso, con ID 123)* |
-| PUT    | Actualizar usuario por ID  | `http://localhost:3000/users/123` *(actualizar ID 123)*  |
-| DELETE | Eliminar usuario por ID    | `http://localhost:3000/users/123` *(eliminar ID 123)*    |
-| GET    | Perfil docente (subrutas)  | `http://localhost:3000/users/perfildocente/...`          |
-| GET    | Perfil alumno (subrutas)   | `http://localhost:3000/users/perfilalumno/...`           |
+| Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
+| ------ | ---------------------------- | ----------------------------------------------------------------- |
+| POST   | Iniciar sesión               | `http://localhost:3000/users/login`                               |
+| POST   | Crear un nuevo usuario       | `http://localhost:3000/users/create`                              |
+| GET    | Obtener todos los usuarios   | `http://localhost:3000/users/find`                                |
+| GET    | Obtener un usuario por ID    | `http://localhost:3000/users/findById/123` *( con ID 123)* |
+| PUT    | Actualizar un usuario por ID | `http://localhost:3000/users/update/123` *( con ID 123)*   |
+| DELETE | Eliminar un usuario por ID   | `http://localhost:3000/users/delete/123` *( con ID 123)*   |
 
 ```
 ## Seccion Inscripciones
@@ -89,7 +87,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | GET    | Obtener todas las publicaciones   | `http://localhost:3000/publicaciones`                            |
 | POST   | Crear una nueva publicación       | `http://localhost:3000/publicaciones`                            |
 | PUT    | Actualizar una publicación por ID | `http://localhost:3000/publicaciones/123` *( con ID 123)* |
-| DELETE | Eliminar una publicación por ID   | `http://localhost:3000/publicaciones/123` *() con ID 123)* |
+| DELETE | Eliminar una publicación por ID   | `http://localhost:3000/publicaciones/123` *( con ID 123)* |
 
 ```
 
