@@ -13,6 +13,7 @@ const empresasRoutes = require('./routes/empresasroutes');
 const publicacionesRoutes = require('./routes/publicacionesroutes');  
 const entrenamientosRoutes = require('./routes/entrenamientosroutes'); 
 const inscripcionesRoutes = require('./routes/inscripcionesroutes');  
+const asistenciasRoutes = require('./routes/asistenciasroutes');  
 
 dotenv.config(); 
 const app = express();
@@ -39,6 +40,8 @@ app.use('/empresas', empresasRoutes);
 app.use('/publicaciones', publicacionesRoutes);
 app.use('/entrenamientos', entrenamientosRoutes);
 app.use('/inscripciones', inscripcionesRoutes);
+app.use('/asistencias', asistenciasRoutes);
+
 
 // para la autenticacion
 passport.use(new GitHubStrategy({

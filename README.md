@@ -45,14 +45,14 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 ```Markdown
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
-| POST   | Iniciar sesión               | `http://localhost:3000/user/login`                               |
-| POST   | Crear un nuevo usuario       | `http://localhost:3000/user/create`                              |
-| GET    | Obtener todos los usuarios   | `http://localhost:3000/user/find` (por dni,nombre similar),id_inscripcion; por omicion todos )    |
-| GET    | Obtener un usuario por ID    | `http://localhost:3000/user/findById/123` *( con ID 123)* |
-| PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/update/123` *( con ID 123)*   |
-| DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/delete/123` *( con ID 123)*   |
-|        | Perfil del Docente           | `http://localhost:3000/user/perfildocente`                |
-|        | Perfil del Alumno            | `http://localhost:3000/user/perfilalumno`                 |
+| POST   | Iniciar sesión               | `http://localhost:3000/user/login`                                |
+| POST   | Crear un nuevo usuario       | `http://localhost:3000/user/create`                               |
+| GET    | Obtener todos los usuarios   | `http://localhost:3000/user/find` (por dni,(nombre o similar),id_inscripcion; por omicion todos )    |
+| GET    | Obtener un usuario por ID    | `http://localhost:3000/user/findById/12` *( con ID 12)*           |
+| PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/update/12` *( con ID 12)*             |
+| DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/delete/12` *( con ID 12)*             |
+|        | Perfil del Docente           | `http://localhost:3000/user/perfildocente`                        |
+|        | Perfil del Alumno            | `http://localhost:3000/user/perfilalumno`                         |
 
 ```
 
@@ -63,12 +63,33 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | ------ | --------------------------------- | ----------------------------------------------------- |
 | POST   | Crear una inscripción             | `http://localhost:3000/inscripciones`                 |
 | GET    | Obtener todas las inscripciones   | `http://localhost:3000/inscripciones`                 |
-| GET    | Obtener una inscripción por ID    | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
-| PUT    | Actualizar una inscripción por ID | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
-| DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/123` *(ejemplo)* |
+| GET    | Obtener una inscripción por ID    | `http://localhost:3000/inscripciones/12`  *(ejemplo)* |
+| PUT    | Actualizar una inscripción por ID | `http://localhost:3000/inscripciones/12`  *(ejemplo)* |
+| DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/12`  *(ejemplo)* |
 
 ```
+### Seccion Asistencias
+```Markdown
+| Método | Descripción                      | URL completa (HTTP)                                |
+| ------ | -------------------------------- | -------------------------------------------------- |
+| POST   | Registrar una nueva asistencia   | `http://localhost:3000/asistencias`                |
+| GET    | Obtener todas las asistencias    | `http://localhost:3000/asistencias`                |
+| GET    | Obtener una asistencia por ID    | `http://localhost:3000/asistencias/12` *(ejemplo)* |
+| PUT    | Actualizar una asistencia por ID | `http://localhost:3000/asistencias/12` *(ejemplo)* |
 
+
+```
+### Seccion Entrenamientos
+```
+| Método | Descripción                        | URL completa (HTTP)                                   |
+| ------ | ---------------------------------- | ----------------------------------------------------- |
+| GET    | Obtener todos los entrenamientos   | `http://localhost:3000/entrenamientos`                |
+| GET    | Obtener un entrenamiento por ID    | `http://localhost:3000/entrenamientos/12` *(ejemplo)* |
+| POST   | Crear un nuevo entrenamiento       | `http://localhost:3000/entrenamientos`                |
+| PUT    | Actualizar un entrenamiento por ID | `http://localhost:3000/entrenamientos/12` *(ejemplo)* |
+| DELETE | Eliminar un entrenamiento por ID   | `http://localhost:3000/entrenamientos/12` *(ejemplo)* |
+
+```
 ### Seccion Cursos
 
 ```Markdown
@@ -76,8 +97,8 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | ------ | -------------------------- | ---------------------------------------------- |
 | GET    | Obtener todos los cursos   | `http://localhost:3000/cursos`                 |
 | POST   | Crear un nuevo curso       | `http://localhost:3000/cursos`                 |
-| PUT    | Actualizar un curso por ID | `http://localhost:3000/cursos/123` *(ejemplo)* |
-| DELETE | Eliminar un curso por ID   | `http://localhost:3000/cursos/123` *(ejemplo)* |
+| PUT    | Actualizar un curso por ID | `http://localhost:3000/cursos/12`  *(ejemplo)* |
+| DELETE | Eliminar un curso por ID   | `http://localhost:3000/cursos/12`  *(ejemplo)* |
 
 ```
 
@@ -88,8 +109,8 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | ------ | ----------------------------- | ----------------------------------------------------------- |
 | GET    | Obtener todas las empresas    | `http://localhost:3000/empresas`                            |
 | POST   | Crear una nueva empresa       | `http://localhost:3000/empresas`                            |
-| PUT    | Actualizar una empresa por ID | `http://localhost:3000/empresas/123` *(con ID 123)* |
-| DELETE | Eliminar una empresa por ID   | `http://localhost:3000/empresas/123` *(con ID 123)* |
+| PUT    | Actualizar una empresa por ID | `http://localhost:3000/empresas/12`          *(con ID 12 )* |
+| DELETE | Eliminar una empresa por ID   | `http://localhost:3000/empresas/12`          *(con ID 12 )* |
 
 ```
 
@@ -100,24 +121,35 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | ------ | --------------------------------- | ---------------------------------------------------------------- |
 | GET    | Obtener todas las publicaciones   | `http://localhost:3000/publicaciones`                            |
 | POST   | Crear una nueva publicación       | `http://localhost:3000/publicaciones`                            |
-| PUT    | Actualizar una publicación por ID | `http://localhost:3000/publicaciones/123` *( con ID 123)* |
-| DELETE | Eliminar una publicación por ID   | `http://localhost:3000/publicaciones/123` *( con ID 123)* |
+| PUT    | Actualizar una publicación por ID | `http://localhost:3000/publicaciones/12`          *( con ID 12)* |
+| DELETE | Eliminar una publicación por ID   | `http://localhost:3000/publicaciones/12`          *( con ID 12)* |
 
 ```
 
 ### Seccion Login con la autorizacion de GitHub
+ Intrucciones GitHub OAuth2 - Autenticación: 
+   1_ https://github.com/settings/developers  ,    Crea una nueva OAuth App
+   2_Instalar : npm install passport passport-github2
+   3_Configura tu archivo .env (en la raíz del proyecto)
 
-````Markdown
+```Markdown
+
+GITHUB_CLIENT_ID=client_id_de_github  
+GITHUB_CLIENT_SECRET=client_secret_de_github
+CALLBACK_URL=http://localhost:3000/github/callback
+
+```
+```Markdown
 | Método | Descripción                    | URL completa (HTTP)                                             |
 | ------ | -------------------------------| ------------------------------------------------------------------------------- |
 
 | GET    | Logearse con Github             | `http://localhost:3000/user/login
 | GET    | Cerrar Session con Github       | `http://localhost:3000/user/logout
-
+```
 ### Seccion Pagos(acceso unicamente si estas autenticado)
 ```Markdown
 | Método | Descripción                      | URL completa (HTTP)                                             |
 | ------ | -------------------------------  | -------------------------------------------------------------------------------
 | GET    | Obtener todos los pagos          | `http://localhost:3000/user/pagos
 | GET    | Obtener los pagos por usuario id | `http://localhost:3000/user/pagos/2
-````
+```
