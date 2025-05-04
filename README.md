@@ -128,9 +128,9 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 
 ### Seccion Login con la autorizacion de GitHub
  Intrucciones GitHub OAuth2 - Autenticación: 
-   1_ https://github.com/settings/developers  ,    Crea una nueva OAuth App
-   2_Instalar : npm install passport passport-github2
-   3_Configura tu archivo .env (en la raíz del proyecto)
+   1. https://github.com/settings/developers  ,    Crea una nueva OAuth App
+   2. Instalar : npm install passport passport-github2
+   3. Configura tu archivo .env (en la raíz del proyecto)
 
 ```Markdown
 
