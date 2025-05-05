@@ -56,7 +56,7 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 ```
 *Ejemplo ruta(http://localhost:3000/user/find ) con parametros:*
 
-*1. 🔎 Buscar por DNI(coincidencia exacta para dni)
+ 1. 🔎 Buscar por DNI(coincidencia exacta para dni)
     GET  http://localhost:3000/user/find?dni=12345678
  2. 🔎 Buscar por nombre (o similar)
     GET  http://localhost:3000/user/find?nombre=juan
@@ -65,7 +65,7 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
  4. 🔎 Buscar por nombre e apellido (o similar)
     GET  http://localhost:3000/user/find?nombre=juan&apellido=Ma
  5. 🔎 Buscar por todos los parámetros
-    GET  http://localhost:3000/user/find?dni=12345678&nombre=juan&apellido=Ma*
+    GET  http://localhost:3000/user/find?dni=12345678&nombre=juan&apellido=Ma
 
 ### Seccion Inscripciones
 ```Markdown
