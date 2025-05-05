@@ -54,7 +54,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 |        | Perfil del Alumno            | `http://localhost:3000/user/perfilalumno`                         |
 
 ```
-*Ejemplo ruta con filtros:*
+*Ejemplo ruta(http://localhost:3000/user/find ) con parametros:*
 
 1. 🔎 Buscar por DNI(coincidencia exacta para dni)
 GET http://localhost:3000/user/find?dni=12345678
