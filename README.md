@@ -46,7 +46,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
 | POST   | Iniciar sesión               | `http://localhost:3000/user/login`                                |
 | POST   | Crear un nuevo usuario       | `http://localhost:3000/user/create`                               |
-| GET    | Obtener todos los usuarios   | http://localhost:3000/user/find   (por dni,(nombre o similar),id_inscripcion; por omicion todos )    |
+| GET    | Obtener todos los usuarios   | http://localhost:3000/user/find   (por dni,(nombre o similar),(apellido o similar); por omicion todos )    |
 | GET    | Obtener un usuario por ID    | http://localhost:3000/user/findById/12                          |
 | PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/update/12`                            |
 | DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/delete/123`                           |
