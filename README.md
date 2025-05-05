@@ -46,8 +46,8 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
 | POST   | Iniciar sesión               | `http://localhost:3000/user/login`                                |
 | POST   | Crear un nuevo usuario       | `http://localhost:3000/user/create`                               |
-| GET    | Obtener todos los usuarios   | `http://localhost:3000/user/find` (por dni,(nombre o similar),id_inscripcion; por omicion todos )    |
-| GET    | Obtener un usuario por ID    | `http://localhost:3000/user/findById/12`                          |
+| GET    | Obtener todos los usuarios   | http://localhost:3000/user/find   (por dni,(nombre o similar),id_inscripcion; por omicion todos )    |
+| GET    | Obtener un usuario por ID    | http://localhost:3000/user/findById/12                          |
 | PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/update/12`                            |
 | DELETE | Eliminar un usuario por ID   | `http://localhost:3000/user/delete/123`                           |
 |        | Perfil del Docente           | `http://localhost:3000/user/perfildocente`                        |
@@ -59,8 +59,8 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | Método | Descripción                       | URL completa (HTTP)                        ejemplo    |
 | ------ | --------------------------------- | ----------------------------------------------------- |
 | POST   | Crear una inscripción             | `http://localhost:3000/inscripciones`                 |
-| GET    | Obtener todas las inscripciones   | `http://localhost:3000/inscripciones`                 |
-| GET    | Obtener una inscripción por ID    | `http://localhost:3000/inscripciones/12 `             |
+| GET    | Obtener todas las inscripciones   |  http://localhost:3000/inscripciones                  |
+| GET    | Obtener una inscripción por ID    |  http://localhost:3000/inscripciones/12               |
 | PUT    | Actualizar una inscripción por ID | `http://localhost:3000/inscripciones/12 `             |
 | DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/12 `             |
 
@@ -70,8 +70,8 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 | Método | Descripción                      | URL completa (HTTP)                       ejemplo  |
 | ------ | -------------------------------- | -------------------------------------------------- |
 | POST   | Registrar una nueva asistencia   | `http://localhost:3000/asistencias`                |
-| GET    | Obtener todas las asistencias    | `http://localhost:3000/asistencias`                |
-| GET    | Obtener una asistencia por ID    | `http://localhost:3000/asistencias/12`             |
+| GET    | Obtener todas las asistencias    |  http://localhost:3000/asistencias                 |
+| GET    | Obtener una asistencia por ID    |  http://localhost:3000/asistencias/12              |
 | PUT    | Actualizar una asistencia por ID | `http://localhost:3000/asistencias/12`             |
 
 
@@ -81,7 +81,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 ```Markdown
 | Método | Descripción                | URL completa (HTTP)                  ejemplo   |
 | ------ | -------------------------- | ---------------------------------------------- |
-| GET    | Obtener todos los cursos   | `http://localhost:3000/cursos`                 |
+| GET    | Obtener todos los cursos   |  http://localhost:3000/cursos                  |
 | POST   | Crear un nuevo curso       | `http://localhost:3000/cursos`                 |
 | PUT    | Actualizar un curso por ID | `http://localhost:3000/cursos/123`             |
 | DELETE | Eliminar un curso por ID   | `http://localhost:3000/cursos/123`             |
@@ -91,7 +91,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 ```Markdown
 | Método | Descripción                   | URL completa (HTTP)                        ejemplo          |
 | ------ | ----------------------------- | ----------------------------------------------------------- |
-| GET    | Obtener todas las empresas    | `http://localhost:3000/empresas`                            |
+| GET    | Obtener todas las empresas    |  http://localhost:3000/empresas                             |
 | POST   | Crear una nueva empresa       | `http://localhost:3000/empresas`                            |
 | PUT    | Actualizar una empresa por ID | `http://localhost:3000/empresas/12`                         |
 | DELETE | Eliminar una empresa por ID   | `http://localhost:3000/empresas/12`                         |
@@ -101,7 +101,7 @@ Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"
 ```Markdown
 | Método | Descripción                       | URL completa (HTTP)                      ejemplo                 |
 | ------ | --------------------------------- | ---------------------------------------------------------------- |
-| GET    | Obtener todas las publicaciones   | `http://localhost:3000/publicaciones`                            |
+| GET    | Obtener todas las publicaciones   |  http://localhost:3000/publicaciones                             |
 | POST   | Crear una nueva publicación       | `http://localhost:3000/publicaciones`                            |
 | PUT    | Actualizar una publicación por ID | `http://localhost:3000/publicaciones/12`                         |
 | DELETE | Eliminar una publicación por ID   | `http://localhost:3000/publicaciones/12`                         |
