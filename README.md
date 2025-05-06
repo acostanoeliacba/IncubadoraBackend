@@ -44,8 +44,8 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 ```Markdown 
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
-| POST   | Iniciar sesión               | `http://localhost:3000/user/login`                                |
-| POST   | Crear un nuevo usuario       | `http://localhost:3000/user/create`                               |
+| POST   | Iniciar sesión               | `http://localhost:3000/user/easy/login`                                |
+| POST   | Crear un nuevo usuario       | `http://localhost:3000/user/easy/create`                               |
 | GET    | Obtener todos los usuarios   | http://localhost:3000/user/find   (por dni,(nombre o similar),(apellido o similar); por omicion todos )    |
 | GET    | Obtener un usuario por ID    | http://localhost:3000/user/findById/12                          |
 | PUT    | Actualizar un usuario por ID | `http://localhost:3000/user/update/12`                            |
