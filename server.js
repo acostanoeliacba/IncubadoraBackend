@@ -2,10 +2,12 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const { sequelizeUsers } = require('./db/database.js');
+const { sequelizeUsers } = require('./db/database');
 const passport = require('passport');
 const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
 
 const userRoutes = require('./routes/usersroutes');
 const cursosRoutes = require('./routes/cursosroutes');  
@@ -23,11 +25,24 @@ app.use(cors({
 }));
 
 app.use(express.json());
-// app.use(cors()); 
+app.use(cors()); 
+
+const sessionStore = new SequelizeStore({
+  db: sequelizeUsers, // Tu instancia de Sequelize
+  tableName: 'Sessions',    // Nombre de la tabla donde se guardarán las sesiones 
+  checkExpirationInterval: 15 * 60 * 1000, 
+  expiration: 24 * 60 * 60 * 1000, 
+});
+sessionStore.sync();
+
 app.use(session({
+    store: sessionStore,
     secret:'secret',
     resave:false,
-    saveUninitialized :true,
+    saveUninitialized :false,
+     cookie: {
+      secure: process.env.NODE_ENV === 'production',
+     }
 
 }))
 app.use(passport.initialize())
