@@ -145,7 +145,7 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 ### Seccion Login con la autorizacion de GitHub
  Intrucciones GitHub OAuth2 - Autenticación: 
    1. https://github.com/settings/developers  ,    Crear una nueva OAuth App
-   2. Instalar : npm install passport passport-github2
+   2. Instalar (si se los solicita o surjen errores) : npm install passport passport-github2 connect-session-sequelize
    3. Configurar el archivo .env (en sus carpetas de backend del proyecto)
 
 ```Markdown
