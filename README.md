@@ -20,17 +20,17 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ```markdown
 {
-"id_usuario": 4,
-"nombre": "Carlos",
-"apellido": "Gómez",
-"fecha_nacimiento": "2004-10-22",
-"direccion": "Av. Rivadavia 456",
-"telefono": "1134567890",
-"email": "carlos.gomez@gmail.com",
-"password": "carlos123",
-"dni": 40234567,
-"especialidad": null,
-"tipo_usuario": "alumno"
+  "id_usuario": 4,
+  "nombre": "Carlos",
+  "apellido": "Gómez",
+  "fecha_nacimiento": "2004-10-22",
+  "direccion": "Av. Rivadavia 456",
+  "telefono": "1134567890",
+  "email": "carlosGomez@gmail.com",
+  "password": "carlos123",
+  "dni": 40234567,
+  "especialidad": null,
+  "tipo_usuario": "alumno"
 }
 ```
 
@@ -90,7 +90,7 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 | PUT    | Actualizar una asistencia por ID | `http://localhost:3000/asistencias/12` *(ejemplo)* |
 ```
 ### Seccion Entrenamientos
-```
+```Markdown
 | Método | Descripción                        | URL completa (HTTP)                                   |
 | ------ | ---------------------------------- | ----------------------------------------------------- |
 | GET    | Obtener todos los entrenamientos   | `http://localhost:3000/entrenamientos`                |
