@@ -44,7 +44,7 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ### Seccion Usuario
 
-*Usare estas rutas para desarrollar todas las secciones luego cambiare a la que usa login con autenticacion con github para finalizar.*
+*Usare estas rutas para desarrollar las secciones luego cambiare a la que usa login con autenticacion con github para finalizar.*
 ```Markdown
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
@@ -146,13 +146,12 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 ```
 
 ### Seccion Login con la autorizacion de GitHub
+
  Intrucciones GitHub OAuth2 - Autenticación: 
    1. https://github.com/settings/developers  ,    Crear una nueva OAuth App
    2. Instalar (si se los solicita o surjen errores) : npm install passport passport-github2 connect-session-sequelize
 
    3. Configurar el archivo .env (en sus carpetas de backend del proyecto con los datos de la app que configuran en git hub)
-   4. Ingresar en homepage url: http://localhost:3000/user
-   5. Ingresar en authorization callback url: http://localhost:3000/github/callback
 ```Markdown
 
 GITHUB_CLIENT_ID=client_id_de_github  
@@ -160,6 +159,10 @@ GITHUB_CLIENT_SECRET=client_secret_de_github
 CALLBACK_URL=http://localhost:3000/github/callback
 
 ```
+   4. Ingresar en homepage url: http://localhost:3000/user
+   5. Ingresar en authorization callback url: http://localhost:3000/github/callback
+
+
 ```Markdown
 | Método | Descripción                    | URL completa (HTTP)                                             |
 | ------ | -------------------------------| ------------------------------------------------------------------------------- |
