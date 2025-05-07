@@ -36,12 +36,13 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 *Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el BackEnd.*
 
-![Base de datos Estructura](assets/Xacademy-Noc-Usuarios.png)
+![Base de datos Estructura](./assets/Xacademy-Noc-Usuarios.png)
 
 ## Pueden revisar si se estan conectando a la base de datos ingresando las siguientes rutas en el navegador:
 
 ### Seccion Usuario
 
+*Usare estas ruta para desarrollar todas las secciones luego cambiare a la que usa login con autenticacion con github para finalizar.
 ```Markdown
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
@@ -146,8 +147,10 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
  Intrucciones GitHub OAuth2 - Autenticación: 
    1. https://github.com/settings/developers  ,    Crear una nueva OAuth App
    2. Instalar (si se los solicita o surjen errores) : npm install passport passport-github2 connect-session-sequelize
-   3. Configurar el archivo .env (en sus carpetas de backend del proyecto)
 
+   3. Configurar el archivo .env (en sus carpetas de backend del proyecto con los datos de la app que configuran en git hub)
+   4. Ingresar en homepage url: http://localhost:3000/user
+   5. Ingresar en authorization callback url: http://localhost:3000/github/callback
 ```Markdown
 
 GITHUB_CLIENT_ID=client_id_de_github  
