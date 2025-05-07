@@ -11,8 +11,8 @@ const { validateDeleteUsuario } = require('../validations/usuarioValidation');
 const { userLoginValidations } = require('../validations/usuarioValidation');
 
 
-router.post('/login', userLoginValidations, usersController.userLogin);
-router.post('/create', usersController.createUser);  
+router.post('/easy/login', userLoginValidations, usersController.userLogin);
+router.post('/easy/create', usersController.createUser);  
 router.get('/find', usersController.getAllUsers); 
 router.get('/findById/:id', usersController.getUserById);  
 router.put('/update/:id', usersController.updateUserById);  

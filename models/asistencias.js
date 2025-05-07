@@ -23,7 +23,7 @@ const asist = sequelizeUsers.define('asist', {
     }
 },
 {
-    tableName: 'Asistencias',  // Nombre de la tabla
+    tableName: 'Asistencia',  // Nombre de la tabla
     timestamps: false,      
 });
 

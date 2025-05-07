@@ -18,21 +18,21 @@ const createUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
  
-    const { nombre, dni, id_inscripcion } = req.query;
+    const { nombre, dni ,apellido} = req.query;
 
     const whereConditions = {};
 
   //Las uso solo si se envian como parametros
     if (nombre) {
-        whereConditions.nombre = { [Op.like]: `%${nombre}%` }; // búsqueda parcial
+        whereConditions.nombre = { [Op.like]: `%${nombre}%` }; // coincidencia o semejante
     }
 
     if (dni) {
         whereConditions.dni = dni;
     }
 
-    if (id_inscripcion) {
-        whereConditions.id_inscripcion = id_inscripcion;
+    if (apellido) {
+        whereConditions.apellido = { [Op.like]: `%${apellido}%` }; // coincidencia o semejante
     }
 
     try {

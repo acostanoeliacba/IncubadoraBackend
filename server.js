@@ -58,6 +58,7 @@ app.use('/inscripciones', inscripcionesRoutes);
 app.use('/asistencias', asistenciasRoutes);
 
 
+
 // para la autenticacion
 passport.use(new GitHubStrategy({
     clientID : process.env.GITHUB_CLIENT_ID,
@@ -84,6 +85,7 @@ app.get('/github/callback', passport.authenticate('github',{
     res.redirect('/user');
 
 });
+
 
 
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
