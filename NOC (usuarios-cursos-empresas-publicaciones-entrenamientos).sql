@@ -1,6 +1,5 @@
 
--- Tiempo de generación: 03-05-2025 a las 19:23:51
-
+-- Tiempo de generación: 07-05-2025 a las 14:53:43
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -23,8 +22,6 @@ USE `NOC`;
 --
 -- Estructura de tabla para la tabla `Asistencia`
 --
--- Creación: 23-04-2025 a las 02:52:59
---
 
 CREATE TABLE `Asistencia` (
   `id_asistencia` int(11) NOT NULL,
@@ -43,8 +40,6 @@ CREATE TABLE `Asistencia` (
 
 --
 -- Estructura de tabla para la tabla `CondicionesAprobacion`
---
--- Creación: 23-04-2025 a las 02:52:59
 --
 
 CREATE TABLE `CondicionesAprobacion` (
@@ -65,8 +60,6 @@ CREATE TABLE `CondicionesAprobacion` (
 --
 -- Estructura de tabla para la tabla `CursoCredito`
 --
--- Creación: 23-04-2025 a las 02:52:59
---
 
 CREATE TABLE `CursoCredito` (
   `id_curso` int(11) NOT NULL,
@@ -85,8 +78,6 @@ CREATE TABLE `CursoCredito` (
 
 --
 -- Estructura de tabla para la tabla `Cursos`
---
--- Creación: 23-04-2025 a las 02:52:59
 --
 
 CREATE TABLE `Cursos` (
@@ -123,8 +114,6 @@ INSERT INTO `Cursos` (`id_curso`, `nombre_curso`, `descripcion`, `duracion`, `ti
 --
 -- Estructura de tabla para la tabla `DocenteCurso`
 --
--- Creación: 26-04-2025 a las 21:59:39
---
 
 CREATE TABLE `DocenteCurso` (
   `id_usuario` int(11) NOT NULL,
@@ -159,8 +148,6 @@ INSERT INTO `DocenteCurso` (`id_usuario`, `id_curso`) VALUES
 --
 -- Estructura de tabla para la tabla `Empresas`
 --
--- Creación: 23-04-2025 a las 02:52:59
---
 
 CREATE TABLE `Empresas` (
   `id_empresa` int(11) NOT NULL,
@@ -190,8 +177,6 @@ INSERT INTO `Empresas` (`id_empresa`, `nombre_empresa`, `descripcion`, `contacto
 
 --
 -- Estructura de tabla para la tabla `EntrenamientosLaborales`
---
--- Creación: 23-04-2025 a las 02:52:59
 --
 
 CREATE TABLE `EntrenamientosLaborales` (
@@ -223,8 +208,6 @@ INSERT INTO `EntrenamientosLaborales` (`id_entrenamiento`, `nombre_entrenamiento
 
 --
 -- Estructura de tabla para la tabla `Inscripciones`
---
--- Creación: 26-04-2025 a las 21:59:12
 --
 
 CREATE TABLE `Inscripciones` (
@@ -264,8 +247,6 @@ INSERT INTO `Inscripciones` (`id_inscripcion`, `id_usuario`, `id_curso`, `fecha_
 --
 -- Estructura de tabla para la tabla `Pagos`
 --
--- Creación: 26-04-2025 a las 21:59:12
---
 
 CREATE TABLE `Pagos` (
   `id_pago` int(11) NOT NULL,
@@ -288,8 +269,6 @@ CREATE TABLE `Pagos` (
 --
 -- Estructura de tabla para la tabla `ProgramasCredito`
 --
--- Creación: 23-04-2025 a las 02:52:59
---
 
 CREATE TABLE `ProgramasCredito` (
   `id_programa` int(11) NOT NULL,
@@ -308,8 +287,6 @@ CREATE TABLE `ProgramasCredito` (
 
 --
 -- Estructura de tabla para la tabla `Publicaciones`
---
--- Creación: 23-04-2025 a las 02:52:59
 --
 
 CREATE TABLE `Publicaciones` (
@@ -340,8 +317,6 @@ INSERT INTO `Publicaciones` (`id_publicacion`, `titulo`, `contenido`, `fecha_pub
 --
 -- Estructura de tabla para la tabla `Usuarios`
 --
--- Creación: 26-04-2025 a las 21:50:54
---
 
 CREATE TABLE `Usuarios` (
   `id_usuario` int(11) NOT NULL,
@@ -366,23 +341,23 @@ CREATE TABLE `Usuarios` (
 --
 
 INSERT INTO `Usuarios` (`id_usuario`, `nombre`, `apellido`, `fecha_nacimiento`, `direccion`, `telefono`, `email`, `password`, `dni`, `especialidad`, `tipo_usuario`) VALUES
-(1, 'Juan', 'Pérez', '2000-01-01', 'villa maria 25', '311554687', 'juan.perez@example.com', 'youtube24', 12345678, '', 'alumno'),
+(1, 'Juan', 'Pérez', '2000-01-01', 'villa maria 25', '311554687', 'juanPerez@gmail.com', 'youtube24', 12345678, '', 'alumno'),
 (2, 'ruth', 'Carlo', '1990-02-10', 'villa maria 5', '311554447', 'calom@gmail.com', 'youangri2', 34563233, '', 'alumno'),
-(3, 'Lucía', 'Martínez', '2005-04-12', 'Calle Falsa 123', '1123456789', 'lucia.martinez@gmail.com', 'lucia123', 40123456, NULL, 'alumno'),
-(4, 'Carlos', 'Gómez', '2004-10-22', 'Av. Rivadavia 456', '1134567890', 'carlos.gomez@gmail.com', 'carlos123', 40234567, NULL, 'alumno'),
-(5, 'María', 'Fernández', '2006-01-15', 'Pasaje Sur 789', '1145678901', 'maria.fernandez@gmail.com', 'maria123', 40345678, NULL, 'alumno'),
-(6, 'Juan', 'Pérez', '2003-07-03', 'Ruta 3 Km 15', '1156789012', 'juan.perez@gmail.com', 'juan123', 40456789, NULL, 'alumno'),
-(7, 'Pedro', 'Suárez', '1980-01-15', 'Calle Talleres 123', '1161111111', 'pedro.suarez@gmail.com', 'pedro123', 31000001, 'Carpintería', 'docente'),
-(8, 'Laura', 'Martínez', '1985-02-20', 'Av. Diseño 456', '1162222222', 'laura.martinez@gmail.com', 'laura123', 31000002, 'Diseño', 'docente'),
-(9, 'Marcelo', 'Ruiz', '1978-03-25', 'Calle Sistemas 789', '1163333333', 'marcelo.ruiz@gmail.com', 'marcelo123', 31000003, 'Informática', 'docente'),
-(10, 'Graciela', 'Fernández', '1975-04-10', 'Ruta 8 Nº 12', '1164444444', 'graciela.fernandez@gmail.com', 'graciela123', 31000004, 'Mecánica', 'docente'),
-(11, 'Andrés', 'Paz', '1982-05-30', 'Pasaje Central 333', '1165555555', 'andres.paz@gmail.com', 'andres123', 31000005, 'Oratoria', 'docente'),
-(12, 'Valeria', 'Luna', '1979-06-14', 'Diagonal Norte 800', '1166666666', 'valeria.luna@gmail.com', 'valeria123', 31000006, 'Pintura', 'docente'),
-(13, 'Esteban', 'Domínguez', '1983-07-22', 'Calle 12 Nº 2200', '1167777777', 'esteban.dominguez@gmail.com', 'esteban123', 31000007, 'Administración', 'docente'),
-(14, 'Carolina', 'Silva', '1981-08-19', 'Calle Letras 155', '1168888888', 'carolina.silva@gmail.com', 'carolina123', 31000008, 'Caligrafía', 'docente'),
-(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javier.torres@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente'),
-(16, 'Luciana', 'Montañes', '1986-06-02', 'villa maria 196', '311569874', 'luciana@gmail.com', 'licia2000', 33564897, 'Pintura', 'docente'),
-(17, ']Juana', 'Maria', '1999-04-05', 'villa Maria 5767', '45565444', 'maria2025@gmail.com', 'passmaria', 42569784, 'Pintura', 'alumno');
+(3, 'Lucía', 'Martínez', '2005-04-12', 'Calle Falsa 123', '1123456789', 'luciaMartinez@gmail.com', 'lucia123', 40123456, NULL, 'alumno'),
+(4, 'Carlos', 'Gómez', '2004-10-22', 'Av. Rivadavia 456', '1134567890', 'carlosGomez@gmail.com', 'carlos123', 40234567, NULL, 'alumno'),
+(5, 'María', 'Fernández', '2006-01-15', 'Pasaje Sur 789', '1145678901', 'mariaFernandez@gmail.com', 'maria123', 40345678, NULL, 'alumno'),
+(6, 'Juan', 'Pérea', '2003-07-03', 'Ruta 3 Km 15', '1156789012', 'juanPerez2@gmail.com', 'juan12345', 40456789, NULL, 'alumno'),
+(7, 'Pedro', 'Suárez', '1980-01-15', 'Calle Talleres 123', '1161111111', 'pedroSuarez@gmail.com', 'pedro123', 31000001, 'Carpintería', 'docente'),
+(8, 'Laura Clara', 'Martínez', '1985-02-20', 'Av. Diseño 456', '1162222222', 'lauraMartinez2@gmail.com', 'laura123', 31000002, 'Diseño', 'docente'),
+(9, 'Marcelo', 'Ruiz', '1978-03-25', 'Calle Sistemas 789', '1163333333', 'marceloRuiz@gmail.com', 'marcelo123', 31000003, 'Informática', 'docente'),
+(10, 'Graciela luz', 'Fernández', '1975-04-10', 'Ruta 8 Nº 12', '1164444444', 'gracielaFernandezMar@gmail.com', 'graciela123', 31000004, 'Mecánica', 'docente'),
+(11, 'Andrés', 'Paz', '1982-05-30', 'Pasaje Central 333', '1165555555', 'andresPaz12@gmail.com', 'andres123', 31000005, 'Oratoria', 'docente'),
+(12, 'Valeria', 'Luna', '1979-06-14', 'Diagonal Norte 800', '1166666666', 'valeriaLuna@gmail.com', 'valeria123', 31000006, 'Pintura', 'docente'),
+(13, 'Esteban', 'Domínguez', '1983-07-22', 'Calle 12 Nº 2200', '1167777777', 'estebanDominguez33@gmail.com', 'esteban123', 31000007, 'Administración', 'docente'),
+(14, 'Carolina', 'Silva', '1981-08-19', 'Calle Letras 155', '1168888888', 'carolinaSilva@gmail.com', 'carolina123', 31000008, 'Caligrafía', 'docente'),
+(15, 'Javier', 'Torres', '1984-09-07', 'Av. Belleza 77', '1169999999', 'javierTorresCuvero@gmail.com', 'javier123', 31000009, 'Manicuría', 'docente'),
+(16, 'Luciana', 'Montañes', '1986-06-02', 'villa maria 196', '311569874', 'lucianaCruz@gmail.com', 'licia2000', 33564897, 'Pintura', 'docente'),
+(17, 'Juana', 'Maria', '1999-04-05', 'villa Maria 5767', '45565444', 'maria2025@gmail.com', 'passmaria', 42569784, 'Pintura', 'alumno');
 
 --
 -- Índices para tablas volcadas
