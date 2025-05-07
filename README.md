@@ -36,13 +36,13 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 *Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el BackEnd.*
 
-![Base de datos Estructura](./assets/Xacademy-Noc-Usuarios.png)
+![Base de datos Estructura](assets/Xacademy-Noc-Usuarios.png)
 
 ## Pueden revisar si se estan conectando a la base de datos ingresando las siguientes rutas en el navegador:
 
 ### Seccion Usuario
 
-*Usare estas ruta para desarrollar todas las secciones luego cambiare a la que usa login con autenticacion con github para finalizar.
+*Usare estas ruta para desarrollar todas las secciones luego cambiare a la que usa login con autenticacion con github para finalizar.*
 ```Markdown
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
