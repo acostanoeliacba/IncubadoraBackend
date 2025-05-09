@@ -23,6 +23,10 @@ const cursos = sequelizeUsers.define('Cursos', {
       type: DataTypes.ENUM('gratuito', 'arancelado', 'capacitacion', 'en linea'),
       allowNull: true
     },
+    costo: {
+      type: DataTypes.DECIMAL(10,2),
+      allowNull: true
+    },
     fecha_inicio: {
       type: DataTypes.DATEONLY,
       allowNull: true
