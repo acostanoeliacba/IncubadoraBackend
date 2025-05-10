@@ -4,8 +4,8 @@ Proyecto Xacademy 2025
 
 ## Instrucciones Creacion base de datos y back End en sus Entornos
 
-*Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma( para especificar el puerto que usan si tienen varios bases de datos  en sus pc  esta en 3307  pueden cambiarlo a 3306):*
-  
+_Para hacer solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma( para especificar el puerto que usan si tienen varios bases de datos en sus pc esta en 3307 pueden cambiarlo a 3306):_
+
 ```markdown
 DB_HOST=localhost
 DB_USER=
@@ -20,31 +20,30 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ```markdown
 {
-  "id_usuario": 4,
-  "nombre": "Carlos",
-  "apellido": "Gómez",
-  "fecha_nacimiento": "2004-10-22",
-  "direccion": "Av. Rivadavia 456",
-  "telefono": "1134567890",
-  "email": "carlosGomez@gmail.com",
-  "password": "carlos123",
-  "dni": 40234567,
-  "especialidad": null,
-  "tipo_usuario": "alumno"
+"id_usuario": 4,
+"nombre": "Carlos",
+"apellido": "Gómez",
+"fecha_nacimiento": "2004-10-22",
+"direccion": "Av. Rivadavia 456",
+"telefono": "1134567890",
+"email": "carlosGomez@gmail.com",
+"password": "carlos123",
+"dni": 40234567,
+"especialidad": null,
+"tipo_usuario": "alumno"
 }
 ```
 
-*Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el BackEnd.*
+_Si es un docente deben incluir su especialidad:"Biologia" etc, y tipo_usuario :"docente" en el back esta contemplado que puede ser un campo vacio la especialidad por el alumno deben realizar validaciones para que los datos sean los esperados en el BackEnd._
 
-
- ![Base de datos Estructura](https://github.com/acostanoeliacba/IncubadoraBackend/blob/main/assets/Xacademy-Noc-Usuarios.png)
-
+![Base de datos Estructura](https://github.com/acostanoeliacba/IncubadoraBackend/blob/main/assets/Xacademy-Noc-Usuarios.png)
 
 ## Pueden revisar si se estan conectando a la base de datos ingresando las siguientes rutas en el navegador:
 
 ### Seccion Usuario
 
-*Usare estas rutas para desarrollar las secciones luego cambiare a la que usa login con autenticacion con github para finalizar.*
+_Usare estas rutas para desarrollar las secciones luego cambiare a la que usa login con autenticacion con github para finalizar._
+
 ```Markdown
 | Método | Descripción                  | URL completa (HTTP)                          ejemplo              |
 | ------ | ---------------------------- | ----------------------------------------------------------------- |
@@ -59,18 +58,18 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ```
 
-*Ejemplo ruta(http://localhost:3000/user/find ) con parametros:*
+_Ejemplo ruta(http://localhost:3000/user/find ) con parametros:_
 
- 1. 🔎 Buscar por DNI(coincidencia exacta para dni)
-    GET  http://localhost:3000/user/find?dni=12345678
- 2. 🔎 Buscar por nombre (o similar)
-    GET  http://localhost:3000/user/find?nombre=juan
- 3. 🔎 Buscar por DNI y nombre
-    GET  http://localhost:3000/user/find?dni=12345678&nombre=juan
- 4. 🔎 Buscar por nombre e apellido (o similar)
-    GET  http://localhost:3000/user/find?nombre=juan&apellido=Ma
- 5. 🔎 Buscar por todos los parámetros
-    GET  http://localhost:3000/user/find?dni=12345678&nombre=juan&apellido=Ma
+1.  🔎 Buscar por DNI(coincidencia exacta para dni)
+    GET http://localhost:3000/user/find?dni=12345678
+2.  🔎 Buscar por nombre (o similar)
+    GET http://localhost:3000/user/find?nombre=juan
+3.  🔎 Buscar por DNI y nombre
+    GET http://localhost:3000/user/find?dni=12345678&nombre=juan
+4.  🔎 Buscar por nombre e apellido (o similar)
+    GET http://localhost:3000/user/find?nombre=juan&apellido=Ma
+5.  🔎 Buscar por todos los parámetros
+    GET http://localhost:3000/user/find?dni=12345678&nombre=juan&apellido=Ma
 
 ### Seccion Inscripciones
 
@@ -83,7 +82,9 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 | PUT    | Actualizar una inscripción por ID | `http://localhost:3000/inscripciones/12 `             |
 | DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/12 `             |
 ```
+
 ### Seccion Asistencias
+
 ```Markdown
 | Método | Descripción                      | URL completa (HTTP)                                |
 | ------ | -------------------------------- | -------------------------------------------------- |
@@ -92,7 +93,9 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 | GET    | Obtener una asistencia por ID    | `http://localhost:3000/asistencias/12` *(ejemplo)* |
 | PUT    | Actualizar una asistencia por ID | `http://localhost:3000/asistencias/12` *(ejemplo)* |
 ```
+
 ### Seccion Entrenamientos
+
 ```Markdown
 | Método | Descripción                        | URL completa (HTTP)                                   |
 | ------ | ---------------------------------- | ----------------------------------------------------- |
@@ -102,7 +105,9 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 | PUT    | Actualizar un entrenamiento por ID | `http://localhost:3000/entrenamientos/12` *(ejemplo)* |
 | DELETE | Eliminar un entrenamiento por ID   | `http://localhost:3000/entrenamientos/12` *(ejemplo)* |
 ```
+
 ### Seccion Asistencias
+
 ```Markdown
 | Método | Descripción                      | URL completa (HTTP)                       ejemplo  |
 | ------ | -------------------------------- | -------------------------------------------------- |
@@ -147,21 +152,23 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
 ### Seccion Login con la autorizacion de GitHub
 
- Intrucciones GitHub OAuth2 - Autenticación: 
-   1. https://github.com/settings/developers  ,    Crear una nueva OAuth App
-   2. Instalar (si se los solicita o surjen errores) : npm install passport passport-github2 connect-session-sequelize
+Intrucciones GitHub OAuth2 - Autenticación:
 
-   3. Configurar el archivo .env (en sus carpetas de backend del proyecto con los datos de la app que configuran en git hub)
+1.  https://github.com/settings/developers , Crear una nueva OAuth App
+2.  Instalar (si se los solicita o surjen errores) : npm install passport passport-github2 connect-session-sequelize
+
+3.  Configurar el archivo .env (en sus carpetas de backend del proyecto con los datos de la app que configuran en git hub)
+
 ```Markdown
 
-GITHUB_CLIENT_ID=client_id_de_github  
+GITHUB_CLIENT_ID=client_id_de_github
 GITHUB_CLIENT_SECRET=client_secret_de_github
 CALLBACK_URL=http://localhost:3000/github/callback
 
 ```
-   4. Ingresar en homepage url: http://localhost:3000/user
-   5. Ingresar en authorization callback url: http://localhost:3000/github/callback
 
+4.  Ingresar en homepage url: http://localhost:3000/user
+5.  Ingresar en authorization callback url: http://localhost:3000/github/callback
 
 ```Markdown
 | Método | Descripción                    | URL completa (HTTP)                                             |
@@ -170,10 +177,23 @@ CALLBACK_URL=http://localhost:3000/github/callback
 | GET    | Logearse con Github             | `http://localhost:3000/user/login
 | GET    | Cerrar Session con Github       | `http://localhost:3000/user/logout
 ```
+
 ### Seccion Pagos(acceso unicamente si estas autenticado)
+
 ```Markdown
 | Método | Descripción                      | URL completa (HTTP)                                             |
 | ------ | -------------------------------  | -------------------------------------------------------------------------------
 | GET    | Obtener todos los pagos          | `http://localhost:3000/user/pagos
 | GET    | Obtener los pagos por usuario id | `http://localhost:3000/user/pagos/2
+```
+
+### Seccion Chat
+
+Instrucciones solo instalar un modulo npm install socket.io
+
+```Markdown
+| Método | Descripción                      | URL completa (HTTP)                                             |
+| ------ | -------------------------------  | -------------------------------------------------------------------------------
+| GET    | ventana de mensajeria            | `http://localhost:3000/user/chat
+
 ```

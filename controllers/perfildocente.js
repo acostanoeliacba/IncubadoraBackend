@@ -2,6 +2,7 @@ const Teacher = require("../models/user");
 const mysql = require("../db/database")
 const { validationResult } = require('express-validator');
 
+
 // recupera todos los docentes
 const getAllteachers = async (req, res, next) => {
     try {
@@ -117,10 +118,11 @@ const deleteTeacher = async (req, res, next) => {
 }
 };
 
+
 module.exports = {
     getAllteachers,
     getSingleTeacher,
     createTeacher,
     updateTeacher,
-    deleteTeacher
+    deleteTeacher,
 }

@@ -9,6 +9,7 @@ const pagosRoutes = require('../routes/pagosroutes')
 const passport = require('passport');
 const { validateDeleteUsuario } = require('../validations/usuarioValidation');
 const { userLoginValidations } = require('../validations/usuarioValidation');
+const chatRoutes = require('../routes/chat');
 
 
 router.post('/easy/login', userLoginValidations, usersController.userLogin);
@@ -20,6 +21,7 @@ router.delete('/delete/:id', validateDeleteUsuario, usersController.deleteUsuari
 router.use('/perfildocente', perfildocenteRoutes);
 router.use('/perfilalumno', perfilalumnoRoutes);
 router.use('/pagos', pagosRoutes);
+router.use('/chat',chatRoutes);
 
 router.get('/login', passport.authenticate('github'),(req,res)=>{});
 router.get('/logout' , function(req , res,next)
