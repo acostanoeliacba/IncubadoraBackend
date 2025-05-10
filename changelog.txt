@@ -1,0 +1,4 @@
+##Agregar foto a la tabla usuarios 10/05/2025 13:00
+
+ALTER TABLE Usuarios
+ADD COLUMN foto VARCHAR(255) NULL;
