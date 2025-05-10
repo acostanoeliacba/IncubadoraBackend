@@ -5,16 +5,49 @@ const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 
-//tabla usuarios es destino
+const multer = require('multer');
+const path = require('path');
+
+// const createUser = async (req, res) => {
+//     try{
+//         const newUser = await User.create(req.body);
+//         res.status(201).json(newUser);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Error al crear el usuario' });
+//     }
+// };
+
 const createUser = async (req, res) => {
-    try{
-        const newUser = await User.create(req.body);
-        res.status(201).json(newUser);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Error al crear el usuario' });
-    }
+  try {
+    const {
+      nombre, apellido, fecha_nacimiento, direccion,
+      telefono, email, password, dni, tipo_usuario, especialidad
+    } = req.body;
+
+    const fotoPath = req.file ? `/uploads/${req.file.filename}` : null;
+    console.log('Archivo recibido en backend:', req.file);
+    const newUser = await User.create({
+      nombre,
+      apellido,
+      fecha_nacimiento,
+      direccion,
+      telefono,
+      email,
+      password,
+      dni,
+      tipo_usuario,
+      especialidad,
+      foto: fotoPath // nuevo campo
+    });
+
+    res.status(201).json(newUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al crear el usuario' });
+  }
 };
+
 
 const getAllUsers = async (req, res) => {
  
@@ -74,7 +107,7 @@ const updateUserById = async (req, res) => {
             return   res.status(404).json({ message: 'Usuario no encontrado' });
         }
         await user.update(req.body);
-        res.json(player);
+        res.json(user);
     } catch (error) {
         res.status(500).json({ message: 'Error al actualizar el usuario' });
     }
@@ -144,7 +177,19 @@ const userLogin = async (req, res) => {
   }
 };
 
+const LoginconGithub = async (req, res) => {
+   if (req.session && req.session.user) {
+    const usuario = {
+      nombre: req.session.user.displayName,//nota github devuenlve nombre completo no nombre y apellido deveria modificar tabla
+      email: req.session.user.emails?.[0]?.value || 'Email no disponible',
+      foto: req.session.user.photos?.[0]?.value || null
+    };
 
+    return res.status(200).json({ usuario });
+  } else {
+    return res.status(401).json({ message: 'No hay sesión activa' });
+  }
+};
 
 module.exports = {
     userLogin,
@@ -154,6 +199,6 @@ module.exports = {
 //    buscarUsersFiltrados,
     getUserById,
     updateUserById,
-    deleteUsuario
-
+    deleteUsuario,
+    LoginconGithub
 };

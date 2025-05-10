@@ -7,7 +7,7 @@ const passport = require('passport');
 const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
+const multer = require('multer');
 
 const userRoutes = require('./routes/usersroutes');
 const cursosRoutes = require('./routes/cursosroutes');  
@@ -17,18 +17,46 @@ const entrenamientosRoutes = require('./routes/entrenamientosroutes');
 const inscripcionesRoutes = require('./routes/inscripcionesroutes');  
 const asistenciasRoutes = require('./routes/asistenciasroutes');  
 
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');  // La carpeta donde se guardarán las fotos
+  },
+  filename: (req, file, cb) => {
+    const dni = req.body.dni || 'sin_dni'; // Usa 'sin_dni' como valor por defecto si no hay dni
+    const ext = path.extname(file.originalname);
+    const filename = `${dni}_${Date.now()}${ext}`;
+    cb(null, filename);
+  }
+});
+
+//const upload = multer({ storage: storage });
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Tipo de archivo no válido. Solo se permiten JPG y PNG.'));
+    }
+  }
+});
+
 dotenv.config(); 
 const app = express();
 
 app.use(cors({
-  origin: 'http://localhost:4200'  
+  origin: 'http://localhost:4200', 
+  credentials: true
 }));
 
 app.use(express.json());
 app.use(cors()); 
 
 const sessionStore = new SequelizeStore({
-  db: sequelizeUsers, // Tu instancia de Sequelize
+  db: sequelizeUsers, // Instancia de Sequelize
   tableName: 'Sessions',    // Nombre de la tabla donde se guardarán las sesiones 
   checkExpirationInterval: 15 * 60 * 1000, 
   expiration: 24 * 60 * 60 * 1000, 
@@ -36,18 +64,21 @@ const sessionStore = new SequelizeStore({
 sessionStore.sync();
 
 app.use(session({
-    store: sessionStore,
-    secret:'secret',
-    resave:false,
-    saveUninitialized :false,
-     cookie: {
-      secure: process.env.NODE_ENV === 'production',
-     }
+  store: sessionStore,
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.SESSION_COOKIE_SECURE,
+    maxAge: 1000 * 60 * 60
+  }
+}));
 
-}))
 app.use(passport.initialize())
 // iniciar passport en cada ruta llamada
 app.use(passport.session())
+
+app.use('/uploads', express.static('uploads'));
 
 app.use('/user', userRoutes);
 app.use('/cursos', cursosRoutes);
@@ -71,22 +102,24 @@ passport.use(new GitHubStrategy({
   }));
 
 
-  passport.serializeUser((user , done)=>{
+passport.serializeUser((user , done)=>{
     done(null ,user);})
-  passport.deserializeUser((user , done)=>{
+passport.deserializeUser((user , done)=>{
     done(null ,user);})  
 
-app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
-
+//esta ruta solo devuelve el nombre puede ser suplantada por(loginGithub)que devuelve mas datos y ademas esta definida como controlador
+//app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
+//
 app.get('/github/callback', passport.authenticate('github',{
-    failureRedirect :'/users/login',session :false}),
-    (req , res)=>{
-    req.session.user = req.user;
-    res.redirect('/user');
-
-});
-
-
+     failureRedirect :'/user/login',session :false}),
+     (req , res)=>{
+     req.session.user = req.user;
+         console.log('Nombre:', req.user.displayName);
+         console.log('Email:', req.user.emails?.[0]?.value);
+         console.log('Foto:', req.user.photos?.[0]?.value);
+            //res.redirect('http://localhost:4200/perfil');
+    res.redirect('/user/loginGithub');
+ });
 
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
 .then(() => {

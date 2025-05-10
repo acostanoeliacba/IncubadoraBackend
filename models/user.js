@@ -47,7 +47,12 @@ const users = sequelizeUsers.define('users', {
     tipo_usuario: {
         type: DataTypes.ENUM('alumno','docente'),
         allowNull: false,
-    }
+    },
+    foto: {
+       type: DataTypes.STRING,
+       allowNull: true
+}
+
 },
 {
     tableName: 'Usuarios',  
