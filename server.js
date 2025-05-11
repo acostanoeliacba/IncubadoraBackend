@@ -17,7 +17,6 @@ const entrenamientosRoutes = require('./routes/entrenamientosroutes');
 const inscripcionesRoutes = require('./routes/inscripcionesroutes');  
 const asistenciasRoutes = require('./routes/asistenciasroutes');  
 
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'uploads/');  // La carpeta donde se guardarán las fotos
@@ -88,7 +87,9 @@ app.use('/entrenamientos', entrenamientosRoutes);
 app.use('/inscripciones', inscripcionesRoutes);
 app.use('/asistencias', asistenciasRoutes);
 
-
+// Pasarela de Pago Stripe 
+const stripeRoutes = require('./routes/stripe');
+app.use('/stripe', stripeRoutes);
 
 // para la autenticacion
 passport.use(new GitHubStrategy({
