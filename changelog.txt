@@ -2,3 +2,7 @@
 
 ALTER TABLE Usuarios
 ADD COLUMN foto VARCHAR(255) NULL;
+
+### se agrego stripe: 
+
+npm install @stripe/stripe-js
