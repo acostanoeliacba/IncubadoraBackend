@@ -113,7 +113,10 @@ app.get('/github/callback', passport.authenticate('github',{
     failureRedirect :'/users/login',session :false}),
     (req , res)=>{
     req.session.user = req.user;
-    res.redirect('/user');
+    console.log('Nombre:', req.user.displayName);
+    console.log('Email:', req.user.emails?.[0]?.value);
+    console.log('Foto:', req.user.photos?.[0]?.value);
+    res.redirect('3000/inscripciones');
 
 });
 
