@@ -1,5 +1,32 @@
 const Pagos = require("../models/pagos");
 const { validationResult } = require('express-validator');
+const Stripe = require('stripe');
+//const stripe = Stripe('sk_test_...'); 
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+const cargaPago = async (req,res,next) => {
+    console.log('datos:', req.body);
+    const { id_usuario, id_curso, monto, fecha_pago } = req.body;
+
+    if (!id_usuario || !id_curso || !fecha_pago || !monto) {
+    return res.status(400).json({ error: 'Faltan datos requeridos.' });
+    }
+    try{
+      const pagoNuevo = await Pagos.create({
+      id_usuario,
+      id_curso,
+      monto,
+      fecha_pago
+    });
+      res.status(201).json({
+      message: 'Pago registrada exitosamente.',
+      id_pago: pagoNuevo.id_usuario
+    });
+    } catch (error) {
+     console.error('Error al Pago', error);
+     res.status(500).json({ error: 'Error al registrar la inscripción.' });
+  }
+}
 
 // recupera todos los pagos
 const getAllpagos = async (req, res, next) => {
@@ -21,7 +48,7 @@ const getSinglePago = async (req, res, next) => {
         const pago = await Pagos.findOne({ where: { id_usuario: pagoId} });
 
         if (!pago) {
-            return res.status(400).json({ error: "Pago de Usuario no encontrado" });
+            return res.status(404).json({ error: "Pago de Usuario no encontrado" });
         }
 
         res.status(200).json(pago);
@@ -30,8 +57,31 @@ const getSinglePago = async (req, res, next) => {
     }
 };
 
+const stripeIntent = async (req, res, next) => {
+  const { amount } = req.body;
+
+  if (!amount || isNaN(amount) || amount <= 0) {
+  return res.status(400).json({ error: 'El monto debe ser un número válido mayor que cero.' });
+  }
+  try {
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount, // en centavos: 1000 = $10.00
+      currency: 'usd',
+      payment_method_types: ['card'],
+    });
+
+    res.send({ clientSecret: paymentIntent.client_secret });
+  } catch (error) {
+    console.error('Error al crear PaymentIntent:', error);
+    res.status(500).send({ error: error.message });
+  }
+};
+
+
 module.exports = 
 {
+    cargaPago,
     getAllpagos,
-    getSinglePago
+    getSinglePago,
+    stripeIntent
 }

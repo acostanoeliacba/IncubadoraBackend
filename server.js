@@ -16,7 +16,7 @@ const publicacionesRoutes = require('./routes/publicacionesroutes');
 const entrenamientosRoutes = require('./routes/entrenamientosroutes'); 
 const inscripcionesRoutes = require('./routes/inscripcionesroutes');  
 const asistenciasRoutes = require('./routes/asistenciasroutes');  
-
+const pagosRoutes = require('./routes/pagosroutes')
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -87,7 +87,7 @@ app.use('/publicaciones', publicacionesRoutes);
 app.use('/entrenamientos', entrenamientosRoutes);
 app.use('/inscripciones', inscripcionesRoutes);
 app.use('/asistencias', asistenciasRoutes);
-
+app.use('/pagos', pagosRoutes);
 
 
 // para la autenticacion

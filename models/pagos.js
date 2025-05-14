@@ -18,18 +18,16 @@ const Pagos = sequelizeUsers.define('pagos', {
         allowNull: false,
     },
     monto:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL(10,2),
         allowNull: false,
     },
     fecha_pago: {
         type: DataTypes.DATE,
         allowNull: false,
     },
-
-
 },
 {
-    tableName: 'pagos',  // Nombre de la tabla
+    tableName: 'Pagos',  // Nombre de la tabla
     timestamps: false,      
 });
 
