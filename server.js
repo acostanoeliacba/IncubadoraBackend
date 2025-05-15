@@ -108,17 +108,19 @@ passport.deserializeUser((user , done)=>{
     done(null ,user);})  
 
 //esta ruta solo devuelve el nombre puede ser suplantada por(loginGithub)que devuelve mas datos y ademas esta definida como controlador
-//app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
+app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
 //
 app.get('/github/callback', passport.authenticate('github',{
-     failureRedirect :'/user/login',session :false}),
+     failureRedirect :'user/login',session :false}),
      (req , res)=>{
      req.session.user = req.user;
-         console.log('Nombre:', req.user.displayName);
+    const [apellido, ...rest] = req.user.displayName.trim().split(' ');
+    const nombre = rest.join(' ');
+         console.log('Nombre:', nombre);
+         console.log('Apellido:', apellido);
          console.log('Email:', req.user.emails?.[0]?.value);
          console.log('Foto:', req.user.photos?.[0]?.value);
-            //res.redirect('http://localhost:4200/perfil');
-    res.redirect('/user/loginGithub');
+         res.redirect('http://localhost:4200/registro');
  });
 
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
