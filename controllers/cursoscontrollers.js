@@ -68,4 +68,5 @@ module.exports = {
     obtenerTodosCursos,
     actualizaCursos,
     eliminaCursos,
+
 };

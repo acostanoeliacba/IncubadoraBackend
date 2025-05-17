@@ -1,8 +1,9 @@
 const { Op } = require('sequelize');
 const Inscripcion = require('../models/inscripciones');
-
+//para relaciones entre tablas
+const { cursos } = require('../models'); 
+//
 const jwt = require('jsonwebtoken');
-
 
 
 const cargaInscripcion = async (req, res) => {
@@ -41,18 +42,49 @@ const getAllInscripciones = async (req, res) => {
 };
 
 const getInscripcionById = async (req, res) => {
+//obtiene todas las inscripciones de un usuario por id
   try {
-    const inscripcion = await Inscripcion.findByPk(req.params.id);
-
-    if (!inscripcion) {
-      return res.status(404).json({ error: 'Inscripción no encontrada.' });
+    const idUsuario = req.params.id;
+    if (!Number.isInteger(parseInt(idUsuario))) {
+      return res.status(400).json({ error: 'El ID de usuario debe ser un número entero válido.' });
     }
-
-    res.status(200).json(inscripcion);
-  } catch (error) {
-    res.status(500).json({ error: 'Error al buscar inscripción.' });
+    const inscripcion = await Inscripcion.findAll({
+      where: { id_usuario: idUsuario }});
+    if (!inscripcion || inscripcion.length === 0) {
+      return res.status(404).json({ error: 'No se encontraron inscripciones para este usuario.' });
+    }
+      res.status(200).json(inscripcion);
+    } catch (error) {
+      console.error('Error al buscar inscripciones:', error);
+      res.status(500).json({ error: 'Error al buscar inscripciones.' }); 
   }
+
 };
+
+  const InscripcionesCursosByUser = async (req, res) => {
+    //obtiene todas las inscripciones de un usuario  por id 
+    try {
+      const idUsuario = req.params.id;
+      if (!Number.isInteger(parseInt(idUsuario))) {
+        return res.status(400).json({ error: 'El ID de usuario debe ser un número entero válido.' });
+      }
+      
+      const data = await Inscripcion.findAll({
+        where: { id_usuario: idUsuario },
+        include: {
+          model: cursos,
+          as: 'curso',
+          attributes: ['nombre_curso']
+        }
+      });
+      res.json(data);
+      } catch (error) {
+        console.error('Error al buscar inscripciones mediante relaciones entre tablas:', error);
+        res.status(500).json({ error: 'Error al buscar inscripciones mediante relaciones entre tablas.' }); 
+    }
+  };
+
+
 
 const updateInscripcion = async (req, res) => {
   const { id_usuario, id_curso, fecha_inscripcion } = req.body;
@@ -93,5 +125,6 @@ module.exports = {
     getAllInscripciones,
     getInscripcionById,
     updateInscripcion,
-    deleteInscripcion
+    deleteInscripcion,
+    InscripcionesCursosByUser
 };

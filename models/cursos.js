@@ -39,4 +39,5 @@ const cursos = sequelizeUsers.define('Cursos', {
     tableName: 'Cursos',
     timestamps: false
   });
+
 module.exports = cursos;
