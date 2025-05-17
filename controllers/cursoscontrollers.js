@@ -13,6 +13,7 @@ const cargaCursos = async (req, res) => {
 };
 
 const obtenerTodosCursos = async (req, res) => {
+  //obtiene ,por nombre similar ; por omicion todos los cursos
   const { nombre } = req.query;
   try {
     const cursos = await Cursos.findAll({
@@ -26,6 +27,23 @@ const obtenerTodosCursos = async (req, res) => {
   }
 };
 
+const obtenerCursoporId = async (req, res, next) => {
+    
+    try {
+        const idCurso = req.params.id; 
+        if (!Number.isInteger(Number(idCurso))) {
+            return res.status(400).json({ error: "Ingresa id de curso numerico" });
+        }
+        const curso = await Cursos.findOne({ where: { id_curso: idCurso} });
+
+        if (!curso) {
+            return res.status(404).json({ error: "Usuario no encontrado" });
+        }
+        res.status(200).json(curso);
+    } catch (error) {
+        res.status(500).json({ error: "Hubo un error tratando de encontrar informacion del curso", error });
+    }
+};
 
 const actualizaCursos = async (req, res) => {
   const { id } = req.params;
@@ -68,5 +86,5 @@ module.exports = {
     obtenerTodosCursos,
     actualizaCursos,
     eliminaCursos,
-
+    obtenerCursoporId
 };
