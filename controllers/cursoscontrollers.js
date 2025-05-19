@@ -2,13 +2,44 @@
 const { Op } = require('sequelize');
 const Cursos = require('../models/cursos');
 
+const bodyParser = require('body-parser');
+
+const multer = require('multer');
+const path = require('path');
+
+// const cargaCursos = async (req, res) => {
+//   try {
+//     const curso = await Cursos.create(req.body);
+//     res.status(201).json(curso);
+//   } catch (err) {
+//     res.status(400).json({ error: err.message });
+//   }
+// };
 
 const cargaCursos = async (req, res) => {
   try {
-    const curso = await Cursos.create(req.body);
-    res.status(201).json(curso);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+    const {
+      nombre_curso, descripcion, duracion, tipo,
+      costo, fecha_inicio, fecha_fin
+    } = req.body;
+
+    const fotoPath = req.file ? `/uploads/${req.file.filename}` : null;
+    console.log('Archivo recibido en backend:', req.file);
+    const newCurso = await Cursos.create({
+      nombre_curso,
+      descripcion,
+      duracion,
+      tipo,
+      costo,
+      fecha_inicio,
+      fecha_fin,
+      foto: fotoPath 
+    });
+
+    res.status(201).json(newCurso);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error al crear el curso' });
   }
 };
 
