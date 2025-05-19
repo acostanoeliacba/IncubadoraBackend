@@ -8,6 +8,8 @@ const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const multer = require('multer');
+const {isAuthenticated} = require('./middleware/autenticacion')
+
 
 const userRoutes = require('./routes/usersroutes');
 const cursosRoutes = require('./routes/cursosroutes');  
@@ -16,7 +18,8 @@ const publicacionesRoutes = require('./routes/publicacionesroutes');
 const entrenamientosRoutes = require('./routes/entrenamientosroutes'); 
 const inscripcionesRoutes = require('./routes/inscripcionesroutes');  
 const asistenciasRoutes = require('./routes/asistenciasroutes');  
-const pagosRoutes = require('./routes/pagosroutes')
+const pagosRoutes = require('./routes/pagosroutes');
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -109,20 +112,63 @@ passport.deserializeUser((user , done)=>{
 
 //esta ruta solo devuelve el nombre puede ser suplantada por(loginGithub)que devuelve mas datos y ademas esta definida como controlador
 app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
-//
-app.get('/github/callback', passport.authenticate('github',{
-     failureRedirect :'user/login',session :false}),
-     (req , res)=>{
-     req.session.user = req.user;
+
+// app.get('/github/callback', passport.authenticate('github',{
+    //  failureRedirect :'user/login', session :false}),
+    // (req , res)=>{res.redirect(`http://localhost:4200/registro`)
+    // req.session.user = req.user;
+    // const [apellido, ...rest] = req.user.displayName.trim().split(' ');
+    // const nombre = rest.join(' ');
+        // const userData = {
+        // nombre: nombre,
+        // apellido: apellido,
+        // email: req.user.emails?.[0]?.value || '', // Maneja el caso de que no haya email
+        // foto: req.user.photos?.[0]?.value || ''   // Maneja el caso de que no haya foto
+    // };
+    //  Guardar en la sesión
+    // req.session.user = userData;
+    // if (isAuthenticated){
+    // res.redirect(`http://localhost:4200/perfil`);
+    // }
+    // })
+    // if(!isAuthenticated)
+      // {
+      // res.redirect(`http://localhost:4200/registro`);
+      // }
+// });
+
+app.get('/github/callback', 
+  passport.authenticate('github', {
+    failureRedirect: '/user/login',
+    session: true
+  }),
+  (req, res) => {
+    if (!req.user) {
+      return res.redirect('/user/login');
+    }
+
+    // Si ya tiene una sesión activa con datos de registro previos
+    if (isAuthenticated) {
+      return res.redirect('http://localhost:4200/perfil');
+    }
+
+    // Primera vez: extraer lo que se pueda y redirigir a registro
     const [apellido, ...rest] = req.user.displayName.trim().split(' ');
     const nombre = rest.join(' ');
-         console.log('Nombre:', nombre);
-         console.log('Apellido:', apellido);
-         console.log('Email:', req.user.emails?.[0]?.value);
-         console.log('Foto:', req.user.photos?.[0]?.value);
-         res.redirect('http://localhost:4200/registro');
- });
 
+    req.session.user = {
+      user_id: req.user.id,
+      nombre,
+      apellido,
+      email: req.user.emails?.[0]?.value || '',
+      foto: req.user.photos?.[0]?.value || ''
+    };
+
+    return res.redirect('http://localhost:4200/registro');
+  }
+);
+
+     
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
 .then(() => {
     console.log('Conexión exitosa a la base de datos');
