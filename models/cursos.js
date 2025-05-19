@@ -34,9 +34,14 @@ const cursos = sequelizeUsers.define('Cursos', {
     fecha_fin: {
       type: DataTypes.DATEONLY,
       allowNull: true
+    },
+    foto: {
+      type: DataTypes.STRING(250),
+      allowNull: true
     }
   }, {
     tableName: 'Cursos',
     timestamps: false
   });
+
 module.exports = cursos;

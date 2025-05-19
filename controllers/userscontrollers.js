@@ -167,7 +167,7 @@ const userLogin = async (req, res) => {
     }
 
     res.json({ message: 'Login exitoso', 
-             user: { id: user.id_usuario, nombre:user.nombre, apellido:user.apellido,email: user.email,
+             user: { id_usuario: user.id_usuario, nombre:user.nombre, apellido:user.apellido,email: user.email,
                      fecha_nacimiento:user.fecha_nacimiento,direccion:user.direccion,
                      telefono:user.telefono ,dni:user.dni, especialidad:user.especialidad,tipo_usuario:user.tipo_usuario,foto:user.foto} });
 
