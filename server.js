@@ -116,10 +116,23 @@ passport.deserializeUser((user , done)=>{
 //esta ruta solo devuelve el nombre puede ser suplantada por(loginGithub)que devuelve mas datos y ademas esta definida como controlador
 app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
 //
-app.get('/github/callback', passport.authenticate('github',{
-     failureRedirect :'user/login',session :false}),
-     (req , res)=>{
-     req.session.user = req.user;
+
+app.get('/github/callback', 
+  passport.authenticate('github', {
+    failureRedirect: '/user/login',
+    session: true
+  }),
+  (req, res) => {
+    if (!req.user) {
+      return res.redirect('/user/login');
+    }
+
+    // Si ya tiene una sesión activa con datos de registro previos
+    if (isAuthenticated) {
+      return res.redirect('http://localhost:4200/perfil');
+    }
+
+    // Primera vez: extraer lo que se pueda y redirigir a registro
     const [apellido, ...rest] = req.user.displayName.trim().split(' ');
     const nombre = rest.join(' ');
 
