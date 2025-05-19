@@ -57,6 +57,6 @@ router.get('/logout' , function(req , res,next)
         res.redirect('/user')
     });
 });
-//router.use('/pagos', pagosRoutes);
+
 
 module.exports = router;
