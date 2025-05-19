@@ -18,6 +18,8 @@ const inscripcionesRoutes = require('./routes/inscripcionesroutes');
 const asistenciasRoutes = require('./routes/asistenciasroutes');  
 const pagosRoutes = require('./routes/pagosroutes');
 const contenidosRoutes = require('./routes/contenidoroutes');
+const docentecursoRoutes = require('./routes/docentecursoroutes');
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -90,7 +92,7 @@ app.use('/inscripciones', inscripcionesRoutes);
 app.use('/asistencias', asistenciasRoutes);
 app.use('/pagos', pagosRoutes);
 app.use('/contenidos', contenidosRoutes);
-
+app.use('/docentes', docentecursoRoutes);
 
 // para la autenticacion
 passport.use(new GitHubStrategy({
