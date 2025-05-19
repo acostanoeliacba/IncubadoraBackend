@@ -47,6 +47,30 @@ const upload = multer({
   }
 });
 
+const storage2 = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: (req, file, cb) => {
+    const nombreCurso = req.body.nombre_curso || 'sin_nombre_curso';
+    const ext = path.extname(file.originalname);
+    cb(null, `${nombreCurso}_${Date.now()}${ext}`);
+  }
+});
+
+const upload2 = multer({ 
+  storage: storage,
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Tipo de archivo no válido. Solo se permiten JPEG o JPG y PNG.'));
+    }
+  }
+});
+
 dotenv.config(); 
 const app = express();
 
