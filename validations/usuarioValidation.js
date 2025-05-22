@@ -8,8 +8,11 @@ exports.validateDeleteUsuario = [
 
 exports.userLoginValidations = [
   body('email')
-    .isEmail().withMessage('El email no es válido')
+    .notEmpty().withMessage('El email es obligatorio.')
+    .isEmail().withMessage('El email no es válido.')
     .normalizeEmail(),
+
   body('password')
-    .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
+    .notEmpty().withMessage('La contraseña es obligatoria.')
+    .isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres.'),
 ];

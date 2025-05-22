@@ -5,6 +5,8 @@ const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 
+const bcrypt = require('bcryptjs');
+
 const multer = require('multer');
 const path = require('path');
 
@@ -48,7 +50,7 @@ const createUser = async (req, res) => {
   }
 };
 
-
+//***************************************************************
 const getAllUsers = async (req, res) => {
  
     const { nombre, dni ,apellido} = req.query;
@@ -82,8 +84,7 @@ const getAllUsers = async (req, res) => {
     }
 
 };
-
-
+//***************************************************************
 const getUserById = async (req, res) => {
     try {
         const user = await User.findByPk(req.params.id);  
@@ -98,7 +99,7 @@ const getUserById = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener el Usuario' });
     }
 };
-
+//***************************************************************
 const updateUserById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -113,6 +114,7 @@ const updateUserById = async (req, res) => {
     }
 };
 
+//***************************************************************
 const deleteUsuario = async (req, res, next) => {
    const errors = validationResult(req);
 
@@ -135,22 +137,8 @@ const deleteUsuario = async (req, res, next) => {
 }
 };
 
-
-//**************************
-const userLoginValidations = [
-  body('email')
-    .isEmail().withMessage('El email no es válido.')
-    .notEmpty().withMessage('El email es obligatorio.'),
-  body('password')
-    .notEmpty().withMessage('La contraseña es obligatoria.')
-    .isLength({ min: 4 }).withMessage('La contraseña debe tener al menos 6 caracteres.')
-];
-
+//***************************************************************
 const userLogin = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
 
   const { email, password } = req.body;
   console.log('Datos recibidos:', req.body);
@@ -162,7 +150,13 @@ const userLogin = async (req, res) => {
       return res.status(401).json({ message: 'Credenciales incorrectas: email no encontrado' });
     }
 
-    if (user.password !== password) {
+    // Comparo como si fuera una contraseña encriptada
+    const PasswordValido = bcrypt.compareSync(password, user.password);
+
+    // Si no es encriptada, comparo directamente 
+    const PasswordTextoValido = user.password === password;
+
+    if (!(PasswordValido || PasswordTextoValido)) {
       return res.status(401).json({ message: 'Credenciales incorrectas: password incorrecto' });
     }
 
@@ -177,6 +171,7 @@ const userLogin = async (req, res) => {
   }
 };
 
+//***************************************************************
 const LoginconGithub = async (req, res) => {
    if (req.session && req.session.user) {
     const usuario = {
@@ -191,9 +186,9 @@ const LoginconGithub = async (req, res) => {
   }
 };
 
+//***************************************************************
 module.exports = {
     userLogin,
-    userLoginValidations,
     createUser,
     getAllUsers,
 //    buscarUsersFiltrados,

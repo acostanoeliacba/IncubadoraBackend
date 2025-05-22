@@ -9,6 +9,7 @@ const perfilalumnoRoutes = require('../routes/perfilalumno')
 const passport = require('passport');
 const { validateDeleteUsuario } = require('../validations/usuarioValidation');
 const { userLoginValidations } = require('../validations/usuarioValidation');
+const ManejarErroresValidacion = require('../middleware/ManejarErroresValidacion');
 
 const multer = require('multer');
 const path = require('path');
@@ -37,7 +38,7 @@ const upload = multer({
   }
 });
 
-router.post('/easy/login', userLoginValidations, usersController.userLogin);
+router.post('/easy/login', userLoginValidations, ManejarErroresValidacion, usersController.userLogin);
 router.post('/easy/create', upload.single('foto'), usersController.createUser);  
 router.get('/find', usersController.getAllUsers); 
 router.get('/findById/:id', usersController.getUserById);  
