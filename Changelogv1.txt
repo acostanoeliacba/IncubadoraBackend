@@ -6,3 +6,8 @@ ADD COLUMN foto VARCHAR(255) NULL;
 ### se agrego stripe: 
 
 npm install @stripe/stripe-js
+
+### precarga de admin 22/05/2025:  instale bscrypt  y sequelise cli
+     npm install bcrypt
+     
+     npx sequelize-cli seed:generate --name admin-user
