@@ -19,7 +19,9 @@ DB_NAME=NOC
 DB_PORT=3307
 
 
-# Si usaran y probaran el login con git hub  deberan registrarse en sus cuntas   y obtener sus #secretkey y demas datos propios de github  y descomentar las siguientes tres lineas.
+# Si usaran y probaran el login con git hub  deberan registrarse en sus 
+cuentas y obtener sus #secretkey y demas datos propios de github  
+
 
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
