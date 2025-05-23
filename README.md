@@ -2,9 +2,14 @@
 
 Proyecto Xacademy 2025
 
+## Caracteristicas nuevas
+  *la carga de usuario ahora tiene la contraseña encriptada deberan recordar la contraseña si cargan usuarios nuevos para reingresar de ser nesesario
+  *la pagina tiene precargada las imagenes de los cursos basicos y de usuario: alumno,docente y un admin
+  * traten de probar todos los resultados esperados o no y avisar (BUG)
+
 ## Instrucciones Creacion base de datos y back End en sus Entornos
 
-*Para hacer  solicitudes a la api localmente una ves que carguen la base de datos mediante el codigo sql  ,recuerden crear el archivo .env en el proyecto y especificar el usuario contraseña y puerto de acceso a sus bases de datos mysql de esta forma( para especificar el puerto que usan si tienen varios bases de datos  en sus pc  esta en 3307  pueden cambiarlo a 3306):*
+  1. configurar sus archivos .env
   
 ```markdown
 DB_HOST=localhost
@@ -12,9 +17,22 @@ DB_USER=
 DB_PASS=
 DB_NAME=NOC
 DB_PORT=3307
+
+
+# Si usaran y probaran el login con git hub  deberan registrarse en sus cuntas   y obtener sus #secretkey y demas datos propios de github  y descomentar las siguientes tres lineas.
+
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+CALLBACK_URL=http://localhost:3000/github/callback
+
 ```
 
-Para correr el proyecto desde consola: npm run dev
+  2. Correr el comando siguiente en consola (el mismo creara y cargara la base de datos)
+
+                                    **npm run db:reset**
+   3.luego correr el servidor normalmente:
+                                    **npm run dev**
+
 
 Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 
@@ -40,7 +58,11 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
  ![Base de datos Estructura](https://github.com/acostanoeliacba/IncubadoraBackend/blob/main/assets/Xacademy-Noc-Usuarios.png)
 
 
+
+
+
 ## Pueden revisar si se estan conectando a la base de datos ingresando las siguientes rutas en el navegador:
+
 
 ### Seccion Usuario
 
@@ -83,15 +105,7 @@ Valores devueltos ejemplo( http://localhost:3000/user/findById/4 )
 | PUT    | Actualizar una inscripción por ID | `http://localhost:3000/inscripciones/12 `             |
 | DELETE | Eliminar una inscripción por ID   | `http://localhost:3000/inscripciones/12 `             |
 ```
-### Seccion Asistencias
-```Markdown
-| Método | Descripción                      | URL completa (HTTP)                                |
-| ------ | -------------------------------- | -------------------------------------------------- |
-| POST   | Registrar una nueva asistencia   | `http://localhost:3000/asistencias`                |
-| GET    | Obtener todas las asistencias    | `http://localhost:3000/asistencias`                |
-| GET    | Obtener una asistencia por ID    | `http://localhost:3000/asistencias/12` *(ejemplo)* |
-| PUT    | Actualizar una asistencia por ID | `http://localhost:3000/asistencias/12` *(ejemplo)* |
-```
+
 ### Seccion Entrenamientos
 ```Markdown
 | Método | Descripción                        | URL completa (HTTP)                                   |
