@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false
       },
       fecha_nacimiento: {
-        type: Sequelize.DATE,
+        type: Sequelize.DATEONLY,
         allowNull: false
       },
       direccion: {

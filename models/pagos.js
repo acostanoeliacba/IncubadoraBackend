@@ -10,25 +10,23 @@ const Pagos = sequelizeUsers.define('pagos', {
     },
     id_usuario: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true,
+        allowNull: false
     },
     id_curso: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
     },
-    monto:{
+    monto: {
         type: DataTypes.DECIMAL(10,2),
-        allowNull: false,
+        allowNull: false
     },
     fecha_pago: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-},
-{
-    tableName: 'Pagos',  // Nombre de la tabla
-    timestamps: false,      
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    }
+}, {
+    tableName: 'Pagos',
+    timestamps: false
 });
 
 module.exports = Pagos;

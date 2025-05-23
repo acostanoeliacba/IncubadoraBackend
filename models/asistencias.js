@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const { sequelizeUsers } = require('../db/database.js');
 
-const asist = sequelizeUsers.define('asist', {
+const asistencias = sequelizeUsers.define('asistencias', {
     id_asistencia: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -13,7 +13,7 @@ const asist = sequelizeUsers.define('asist', {
         allowNull: false,
     },
     fecha: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
 
@@ -23,8 +23,8 @@ const asist = sequelizeUsers.define('asist', {
     }
 },
 {
-    tableName: 'Asistencia',  // Nombre de la tabla
+    tableName: 'Asistencia',  
     timestamps: false,      
 });
 
-module.exports = asist;
+module.exports = asistencias;

@@ -11,16 +11,16 @@ module.exports = {
       fecha_nacimiento: '1990-01-01',
       direccion: 'Base',
       telefono: '123456789',
-      email: 'admin@miapp.com',
+      email: 'adminroot@gmail.com',
       password: passwordHash,
       dni: 12345678,
       especialidad: 'Administrador del sistema',
       tipo_usuario: 'docente',
-      foto: '12345678-admin.png',
+      foto: '/uploads/12345678-admin.png',
     }], {});
   },
 
   async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Usuarios', { email: 'admin@miapp.com' }, {});
+    return queryInterface.bulkDelete('Usuarios', { email: 'adminroot@gmail.com' }, {});
   }
 };
