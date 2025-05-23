@@ -11,7 +11,6 @@ const obtenerAllContenidos = async (req, res) => {
   }
 };
 
-
 const obtenerContenidosById = async (req, res) => {
   try {
     const data = await Contenido.findByPk(req.params.id);
