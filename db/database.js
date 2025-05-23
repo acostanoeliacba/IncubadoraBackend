@@ -8,7 +8,7 @@ const sequelizeUsers = new Sequelize({
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
     dialect: 'mysql',
-    logging: false, // Desactiva el log 
+    logging: false, // para desactiva el log 
 });
 
 module.exports = { sequelizeUsers };

@@ -8,7 +8,7 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         references: {
-          model: 'Usuarios', // Asegurate de que este sea el nombre correcto de la tabla
+          model: 'Usuarios', 
           key: 'id_usuario'
         },
         onUpdate: 'CASCADE',

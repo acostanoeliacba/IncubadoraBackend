@@ -26,7 +26,7 @@ module.exports = {
         allowNull: false
       },
       // telefono: {
-      //   type: Sequelize.STRING(15), // mejor STRING que INTEGER por ceros o prefijos
+      //   type: Sequelize.STRING(15), // mejor STRING que INTEGER por ceros o prefijos revisar luego
       //   allowNull: false
       // },
       telefono: {

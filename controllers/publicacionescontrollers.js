@@ -17,7 +17,7 @@ exports.obtenerPublicaciones = async (req, res) => {
   }
 };
 
-// Crear una nueva publicación
+
 exports.crearPublicacion = async (req, res) => {
   try {
     const nueva = await Publicacion.create(req.body);
@@ -27,7 +27,7 @@ exports.crearPublicacion = async (req, res) => {
   }
 };
 
-// Actualizar una publicación por ID
+
 exports.actualizarPublicacion = async (req, res) => {
   const { id } = req.params;
   try {
@@ -45,7 +45,6 @@ exports.actualizarPublicacion = async (req, res) => {
   }
 };
 
-// Eliminar una publicación
 exports.eliminarPublicacion = async (req, res) => {
   const { id } = req.params;
   try {
