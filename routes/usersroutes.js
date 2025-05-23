@@ -7,8 +7,14 @@ const perfildocenteRoutes = require('../routes/perfildocente')
 const perfilalumnoRoutes = require('../routes/perfilalumno')
 
 const passport = require('passport');
-const { validateDeleteUsuario } = require('../validations/usuarioValidation');
-const { userLoginValidations } = require('../validations/usuarioValidation');
+
+const ManejarErroresValidacion = require('../middleware/ManejarErroresValidacion');
+const {
+  validateCreateUsuario,
+  validateUpdateUsuario,
+  validateDeleteUsuario,
+  userLoginValidations
+} = require('../validations/usuarioValidation');
 
 const multer = require('multer');
 const path = require('path');
@@ -37,15 +43,24 @@ const upload = multer({
   }
 });
 
-router.post('/easy/login', userLoginValidations, usersController.userLogin);
-router.post('/easy/create', upload.single('foto'), usersController.createUser);  
+router.post('/easy/create',upload.single('foto'),validateCreateUsuario,ManejarErroresValidacion,
+  usersController.createUser
+);
 router.get('/find', usersController.getAllUsers); 
-router.get('/findById/:id', usersController.getUserById);  
-router.put('/update/:id', usersController.updateUserById);  
-router.delete('/delete/:id', validateDeleteUsuario, usersController.deleteUsuario);
+router.get('/findById/:id', usersController.getUserById); 
+router.put('/update/:id',validateUpdateUsuario,ManejarErroresValidacion,
+  usersController.updateUserById
+);
+
+router.delete('/delete/:id',validateDeleteUsuario,ManejarErroresValidacion,
+  usersController.deleteUsuario
+);
+
+router.post('/easy/login',userLoginValidations,ManejarErroresValidacion,
+  usersController.userLogin
+);
 router.use('/perfildocente', perfildocenteRoutes);
 router.use('/perfilalumno', perfilalumnoRoutes);
-
 
 // router.get('/loginGithub', usersController.LoginconGithub);
 router.get('/login', passport.authenticate('github'),(req,res)=>{});

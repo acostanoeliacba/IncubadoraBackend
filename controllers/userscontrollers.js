@@ -5,18 +5,12 @@ const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 
+const bcrypt = require('bcryptjs');
+
 const multer = require('multer');
 const path = require('path');
 
-// const createUser = async (req, res) => {
-//     try{
-//         const newUser = await User.create(req.body);
-//         res.status(201).json(newUser);
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).json({ message: 'Error al crear el usuario' });
-//     }
-// };
+
 
 const createUser = async (req, res) => {
   try {
@@ -26,7 +20,9 @@ const createUser = async (req, res) => {
     } = req.body;
 
     const fotoPath = req.file ? `/uploads/${req.file.filename}` : null;
+    const hashedPassword = await bcrypt.hash(password, 10);
     console.log('Archivo recibido en backend:', req.file);
+
     const newUser = await User.create({
       nombre,
       apellido,
@@ -34,21 +30,30 @@ const createUser = async (req, res) => {
       direccion,
       telefono,
       email,
-      password,
+      password: hashedPassword,
       dni,
       tipo_usuario,
       especialidad,
-      foto: fotoPath // nuevo campo
+      foto: fotoPath 
     });
 
-    res.status(201).json(newUser);
+    res.status(201).json({
+      message: 'Usuario creado exitosamente',
+      user: {
+        id_usuario: newUser.id_usuario,
+        nombre: newUser.nombre,
+        apellido: newUser.apellido,
+        email: newUser.email,
+        tipo_usuario: newUser.tipo_usuario
+      }
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error al crear el usuario' });
   }
 };
 
-
+//***************************************************************
 const getAllUsers = async (req, res) => {
  
     const { nombre, dni ,apellido} = req.query;
@@ -69,7 +74,7 @@ const getAllUsers = async (req, res) => {
     }
 
     try {
-        const users = await User.findAll({ where: whereConditions });
+        const users = await User.findAll({ where: whereConditions,  attributes: { exclude: ['password'] }});
 
         if (users.length === 0) {
             return res.status(404).json({ message: 'No se encontraron usuarios' });
@@ -82,11 +87,10 @@ const getAllUsers = async (req, res) => {
     }
 
 };
-
-
+//***************************************************************
 const getUserById = async (req, res) => {
     try {
-        const user = await User.findByPk(req.params.id);  
+        const user = await User.findByPk(req.params.id, {attributes: { exclude: ['password'] } });  
 
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado' });
@@ -98,59 +102,54 @@ const getUserById = async (req, res) => {
         res.status(500).json({ message: 'Error al obtener el Usuario' });
     }
 };
+//***************************************************************
 
 const updateUserById = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const user = await User.findByPk(id);
-        if (!user) {
-            return   res.status(404).json({ message: 'Usuario no encontrado' });
-        }
-        await user.update(req.body);
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ message: 'Error al actualizar el usuario' });
+  const { id } = req.params;
+  try {
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
     }
+
+    await user.update(req.body);
+
+    const updatedUser = user.get({ plain: true });
+    delete updatedUser.password;
+
+    res.json({
+      message: 'Usuario actualizado exitosamente',
+      user: updatedUser
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al actualizar el usuario', details: error.message });
+  }
 };
 
-const deleteUsuario = async (req, res, next) => {
-   const errors = validationResult(req);
 
-   if (!errors.isEmpty()) {
-       return res.status(400).json({ errors: errors.array() });
-   }
+//***************************************************************
 
-   const usuarioId = req.params.id;
+const deleteUsuario = async (req, res) => {
 
-   try {
+  const usuarioId = req.params.id;
+
+  try {
     const deleted = await User.destroy({ where: { id_usuario: usuarioId } });
 
     if (deleted === 0) {
-        return res.status(404).json({ error: 'Usuario no encontrado' });
+      return res.status(404).json({ error: 'Usuario no encontrado' });
     }
 
-    res.status(204).send();
-} catch (error) {
-    res.status(500).json({ error: 'Error al eliminar Usuario ', details: error.message });
-}
+    res.status(204).send(); 
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar usuario', details: error.message });
+  }
 };
 
 
-//**************************
-const userLoginValidations = [
-  body('email')
-    .isEmail().withMessage('El email no es válido.')
-    .notEmpty().withMessage('El email es obligatorio.'),
-  body('password')
-    .notEmpty().withMessage('La contraseña es obligatoria.')
-    .isLength({ min: 4 }).withMessage('La contraseña debe tener al menos 6 caracteres.')
-];
-
+//***************************************************************
 const userLogin = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
 
   const { email, password } = req.body;
   console.log('Datos recibidos:', req.body);
@@ -161,8 +160,13 @@ const userLogin = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: 'Credenciales incorrectas: email no encontrado' });
     }
+    
+    // Comparo como si fuera una contraseña encriptada
+    const PasswordValido = await bcrypt.compare(password, user.password); 
+    // Si no es encriptada, comparo directamente 
+    const PasswordTextoValido = user.password === password;
 
-    if (user.password !== password) {
+    if (!(PasswordValido || PasswordTextoValido)) {
       return res.status(401).json({ message: 'Credenciales incorrectas: password incorrecto' });
     }
 
@@ -177,6 +181,7 @@ const userLogin = async (req, res) => {
   }
 };
 
+//***************************************************************
 const LoginconGithub = async (req, res) => {
    if (req.session && req.session.user) {
     const usuario = {
@@ -191,9 +196,9 @@ const LoginconGithub = async (req, res) => {
   }
 };
 
+//***************************************************************
 module.exports = {
     userLogin,
-    userLoginValidations,
     createUser,
     getAllUsers,
 //    buscarUsersFiltrados,

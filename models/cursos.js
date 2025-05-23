@@ -4,6 +4,7 @@ const { sequelizeUsers } = require('../db/database.js');
 const cursos = sequelizeUsers.define('Cursos', {
     id_curso: {
       type: DataTypes.INTEGER,
+      allowNull: false ,
       primaryKey: true,
       autoIncrement: true
     },

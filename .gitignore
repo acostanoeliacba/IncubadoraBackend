@@ -2,10 +2,10 @@
 node_modules/
 .env
 
-changelog2.txt
-.changelog2.txt
-/changelog2.txt
-changelog2.txt/
 
 
+Changelog.v1.txt
+./Changelogv1.txt.txt
+Changelogv1.txt./
+.Changelogv1.txt.txt
 
