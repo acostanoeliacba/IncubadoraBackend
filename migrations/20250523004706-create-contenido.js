@@ -13,7 +13,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'Cursos', // Asegúrate de que coincida con tu tabla de cursos
+          model: 'Cursos', 
           key: 'id_curso'
         },
         onUpdate: 'CASCADE',
