@@ -4,9 +4,9 @@ Proyecto Xacademy 2025
 
 ## Caracteristicas nuevas
 
-  **la carga de usuario ahora tiene la contraseña encriptada deberan recordar la contraseña si cargan usuarios nuevos para reingresar de ser nesesario**
-  **la pagina tiene precargada las imagenes de los cursos basicos y de usuario: alumno,docente y un admin**
-  **traten de probar todos los resultados esperados o no y avisar (BUG)**
+  * **la carga de usuario ahora tiene la contraseña encriptada deberan recordar la contraseña si cargan usuarios nuevos para reingresar de ser nesesario**
+  * **la pagina tiene precargada las imagenes de los cursos basicos y de usuario: alumno,docente y un admin**
+  * **traten de probar todos los resultados esperados o no y avisar (BUG)**
 
 ## Instrucciones Creacion base de datos y back End en sus Entornos
 
@@ -33,7 +33,9 @@ CALLBACK_URL=http://localhost:3000/github/callback
   2. Correr el comando siguiente en consola (el mismo creara y cargara la base de datos)
 
                                     npm run db:reset
-   3.luego correr el servidor normalmente:
+
+  3. Luego correr el servidor normalmente
+
                                     npm run dev
 
 
