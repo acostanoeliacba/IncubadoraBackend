@@ -29,13 +29,19 @@ const contenido = sequelizeUsers.define('contenido', {
     },
     fecha_publicacion: {
       type: DataTypes.DATEONLY,
-      allowNull: true,
-      defaultValue: DataTypes.NOW
+      allowNull: true
     }
   }, {
     tableName: 'Contenido',
     timestamps: false
   });
+
+  contenido.beforeCreate((contenido, options) => {
+  if (!contenido.fecha_publicacion) {
+    contenido.fecha_publicacion = new Date().toISOString().split('T')[0];
+  }
+});
+
 
 module.exports = contenido;
 
