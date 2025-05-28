@@ -5,6 +5,7 @@ const router = express.Router();
 const usersController = require('../controllers/userscontrollers');
 const perfildocenteRoutes = require('../routes/perfildocente')
 const perfilalumnoRoutes = require('../routes/perfilalumno')
+const chatRoutes = require('../routes/chat');
 
 const passport = require('passport');
 
@@ -72,6 +73,8 @@ router.get('/logout' , function(req , res,next)
         res.redirect('/user')
     });
 });
+
+router.use('/chat',chatRoutes);
 
 
 module.exports = router;

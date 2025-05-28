@@ -9,6 +9,8 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const multer = require('multer');
 const {isAuthenticated} = require('./middleware/autenticacion')
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
 
 
 const userRoutes = require('./routes/usersroutes');
@@ -120,6 +122,34 @@ app.use('/pagos', pagosRoutes);
 app.use('/contenidos', contenidosRoutes);
 app.use('/docentes', docentecursoRoutes);
 
+const server = createServer(app);
+const io = new Server(server);
+
+// chat
+// esto emitirá el evento a todos los sockets conectados
+ io.emit('hello', 'world'); 
+
+// Si desea enviar un mensaje a todos excepto a un socket emisor determinado
+io.on('connection', (socket) => {
+  socket.broadcast.emit('hi');
+});
+
+// envia el mensaje a todos, incluido el remitente.
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+      console.log('message: ' + msg);
+  });
+});
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+});
+
+
 // para la autenticacion
 passport.use(new GitHubStrategy({
     clientID : process.env.GITHUB_CLIENT_ID,
@@ -176,7 +206,7 @@ app.get('/github/callback',
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
 .then(() => {
     console.log('Conexión exitosa a la base de datos');
-    app.listen(3000, () => {
+    server.listen(3000, () => {
         console.log('Servidor corriendo en el puerto 3000');
     });
 })
