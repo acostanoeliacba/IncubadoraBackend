@@ -42,8 +42,7 @@ module.exports = {
       },
       fecha_publicacion: {
         type: Sequelize.DATEONLY,
-        allowNull: true,
-        defaultValue: Sequelize.literal('CURDATE()')
+        allowNull: true
       }
     });
   },
