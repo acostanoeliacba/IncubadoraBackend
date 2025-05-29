@@ -8,7 +8,8 @@ const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
 router.post('/create-payment-intent',pagos.stripeIntent)
 router.post('/',pagos.cargaPago)
-router.get('/', isAuthenticated , pagos.getAllpagos  )
+router.get('/', pagos.getAllpagos);
+//router.get('/', isAuthenticated , pagos.getAllpagos  )
 router.get('/:id_usuario',isAuthenticated, pagos.getSinglePago)
 
 

@@ -33,7 +33,7 @@ router.get('/', cursoscontrollers.obtenerTodosCursos);
 router.get('/info/:id', cursoscontrollers.obtenerCursoporId);
 //router.post('/', cursoscontrollers.cargaCursos);
 router.post('/', upload2.single('foto'), cursoscontrollers.cargaCursos);
-router.put('/:id', cursoscontrollers.actualizaCursos);
+router.put('/:id', upload2.single('foto'), cursoscontrollers.actualizaCursos);
 router.delete('/:id', cursoscontrollers.eliminaCursos);
 
 module.exports = router;

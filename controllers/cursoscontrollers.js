@@ -7,14 +7,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 
-// const cargaCursos = async (req, res) => {
-//   try {
-//     const curso = await Cursos.create(req.body);
-//     res.status(201).json(curso);
-//   } catch (err) {
-//     res.status(400).json({ error: err.message });
-//   }
-// };
+
 
 const cargaCursos = async (req, res) => {
   try {
@@ -78,8 +71,15 @@ const obtenerCursoporId = async (req, res, next) => {
 
 const actualizaCursos = async (req, res) => {
   const { id } = req.params;
+
   try {
-    const [updated] = await Cursos.update(req.body, {
+    const datosActualizados = { ...req.body };
+
+    if (req.file) {
+      datosActualizados.foto = req.file.filename;
+    }
+
+    const [updated] = await Cursos.update(datosActualizados, {
       where: { id_curso: id }
     });
 
@@ -90,6 +90,7 @@ const actualizaCursos = async (req, res) => {
       res.status(404).json({ error: 'Curso no encontrado' });
     }
   } catch (err) {
+    console.error('Error en actualización:', err);
     res.status(400).json({ error: err.message });
   }
 };
