@@ -1,7 +1,6 @@
 const Contenido = require('../models/contenido');
 const { Op } = require('sequelize');
 
-
 const obtenerAllContenidos = async (req, res) => {
   try {
     const data = await Contenido.findAll();
@@ -23,7 +22,7 @@ const obtenerContenidosById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-// Obtener todos los contenido de un curso por id_curso
+
 const contenidosByCursoById = async (req, res) => {
    try {
       
@@ -41,7 +40,6 @@ const contenidosByCursoById = async (req, res) => {
       res.status(500).json({ error: err.message });
     }
   };
-
 
 const crearContenido = async (req, res) => {
   try {

@@ -17,6 +17,7 @@ exports.obtenerPublicaciones = async (req, res) => {
   }
 };
 
+
 exports.crearPublicacion = async (req, res) => {
   try {
     const nueva = await Publicacion.create(req.body);

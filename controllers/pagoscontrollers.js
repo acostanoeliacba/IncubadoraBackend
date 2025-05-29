@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const Stripe = require('stripe');
 //const stripe = Stripe('sk_test_...'); 
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const { Op } = require("sequelize");
 
 const cargaPago = async (req,res,next) => {
     console.log('datos:', req.body);
@@ -30,13 +31,24 @@ const cargaPago = async (req,res,next) => {
 
 // recupera todos los pagos
 const getAllpagos = async (req, res, next) => {
-    try {
-        const pagos = await Pagos.findAll();
-        res.status(200).json(pagos);
-    } catch (error) {
-        next(error);
-    }
+  try {
+    const { id_usuario, id_curso, fecha_pago } = req.query;
+
+    const where = {};
+
+    if (id_usuario) where.id_usuario = id_usuario;
+    if (id_curso) where.id_curso = id_curso;
+    if (fecha_pago) where.fecha_pago = fecha_pago;
+
+    const pagos = await Pagos.findAll({ where });
+
+    res.status(200).json(pagos);
+  } catch (error) {
+    console.error("Error al obtener pagos:", error);
+    res.status(500).json({ error: "Error al obtener pagos" });
+  }
 };
+
 // recupera un solo pago por el id
 const getSinglePago = async (req, res, next) => {
     
