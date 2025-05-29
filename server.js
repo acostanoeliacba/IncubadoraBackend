@@ -2,6 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const { Op } = require('sequelize');
 const { sequelizeUsers } = require('./db/database');
 const passport = require('passport');
 const session = require('express-session');
@@ -11,6 +12,7 @@ const multer = require('multer');
 const {isAuthenticated} = require('./middleware/autenticacion')
 const { createServer } = require('node:http');
 const { Server } = require('socket.io');
+const Mensaje = require('./models/chat')
 
 
 const userRoutes = require('./routes/usersroutes');
@@ -123,30 +125,58 @@ app.use('/contenidos', contenidosRoutes);
 app.use('/docentes', docentecursoRoutes);
 
 const server = createServer(app);
-const io = new Server(server);
-
-// chat
-// esto emitirá el evento a todos los sockets conectados
- io.emit('hello', 'world'); 
-
-// Si desea enviar un mensaje a todos excepto a un socket emisor determinado
-io.on('connection', (socket) => {
-  socket.broadcast.emit('hi');
+const io = new Server(server, {
+  connectionStateRecovery: {}
 });
 
-// envia el mensaje a todos, incluido el remitente.
-io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
-      console.log('message: ' + msg);
-  });
-});
-
-io.on('connection', (socket) => {
+io.on('connection', async (socket) => {
   console.log('a user connected');
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+
+  socket.on('chat message', async (msg, clientOffset, callback = () => {}) => {
+    let result;
+    try {
+      result = await Mensaje.create({
+        content: msg,
+        client_offset: clientOffset
+      });
+    } catch (e) {
+      if (e.errno === 19) {
+        // Mensaje duplicado
+        callback();
+      } else {
+        console.error('Error al guardar mensaje:', e);
+      }
+      return;
+    }
+
+    io.emit('chat message', msg, result.id);
+    callback();
+  });
+
+  if (!socket.recovered) {
+    const offset = socket.handshake.auth.serverOffset || 0;
+
+    try {
+      const mensajes = await Mensaje.findAll({
+        where: {
+          id: {
+            [Op.gt]: offset
+          }
+        },
+        order: [['id', 'ASC']]
+      });
+
+      mensajes.forEach((row) => {
+        socket.emit('chat message', row.content, row.id);
+      });
+    } catch (e) {
+      console.error('Error al recuperar mensajes:', e);
+    }
+  }
 });
 
 
