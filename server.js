@@ -86,7 +86,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(cors()); 
+// app.use(cors()); 
 
 const sessionStore = new SequelizeStore({
   db: sequelizeUsers, // Instancia de Sequelize
@@ -126,6 +126,11 @@ app.use('/docentes', docentecursoRoutes);
 
 const server = createServer(app);
 const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST'],
+    credentials: true
+  },
   connectionStateRecovery: {}
 });
 
