@@ -21,6 +21,7 @@ const asistenciasRoutes = require('./routes/asistenciasroutes');
 const pagosRoutes = require('./routes/pagosroutes');
 const contenidosRoutes = require('./routes/contenidoroutes');
 const docentecursoRoutes = require('./routes/docentecursoroutes');
+const pagosAdmin = require( './routes/pagosAdmin.routes');
 
 
 const storage = multer.diskStorage({
@@ -119,6 +120,7 @@ app.use('/asistencias', asistenciasRoutes);
 app.use('/pagos', pagosRoutes);
 app.use('/contenidos', contenidosRoutes);
 app.use('/docentes', docentecursoRoutes);
+app.use('/admin/pagos', require('./routes/pagosAdmin.routes'));
 
 // para la autenticacion
 passport.use(new GitHubStrategy({
