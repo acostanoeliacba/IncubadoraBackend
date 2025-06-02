@@ -183,18 +183,40 @@ const userLogin = async (req, res) => {
 
 //***************************************************************
 const LoginconGithub = async (req, res) => {
-   if (req.session && req.session.user) {
-    const usuario = {
-      nombre: req.session.user.displayName,//nota github devuenlve nombre completo no nombre y apellido deveria modificar tabla
-      email: req.session.user.emails?.[0]?.value || 'Email no disponible',
-      foto: req.session.user.photos?.[0]?.value || null
+  if (req.user) {
+    const [apellido, ...rest] = req.user.displayName.trim().split(' ');
+    const nombre = rest.join(' ');
+
+    const username = req.user.username || 'user';
+    const email = `${username}@github`;
+    const foto = req.user.photos?.[0]?.value || '';
+
+    const userData = {
+      user_id: req.user.id,
+      nombre,
+      apellido,
+      email,
+      foto
     };
 
-    return res.status(200).json({ usuario });
+    req.session.user = userData;
+    res.json({ message: 'Login exitoso', 
+             userData: { nombre:userData.nombre, apellido:userData.apellido,email: userData.email,
+                     foto:userData.foto} });
+
+
+    return res.status(200).json({ user: userData });
   } else {
     return res.status(401).json({ message: 'No hay sesión activa' });
   }
 };
+const obtenerUsuario = (req, res) => {
+  if (req.session && req.session.user) {
+    return res.status(200).json({ user: req.session.user });
+  } else {
+    return res.status(401).json({ message: 'No hay sesión activa' });
+  }
+}
 
 //***************************************************************
 module.exports = {
@@ -205,5 +227,6 @@ module.exports = {
     getUserById,
     updateUserById,
     deleteUsuario,
-    LoginconGithub
+    LoginconGithub,
+    obtenerUsuario
 };

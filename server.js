@@ -8,7 +8,6 @@ const session = require('express-session');
 const GitHubStrategy = require('passport-github2').Strategy;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const multer = require('multer');
-const {isAuthenticated} = require('./middleware/autenticacion')
 
 
 const userRoutes = require('./routes/usersroutes');
@@ -84,6 +83,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cors()); 
 
+/*
 const sessionStore = new SequelizeStore({
   db: sequelizeUsers, // Instancia de Sequelize
   tableName: 'Sessions',    // Nombre de la tabla donde se guardarán las sesiones 
@@ -102,6 +102,7 @@ app.use(session({
     maxAge: 1000 * 60 * 60
   }
 }));
+*/
 
 app.use(passport.initialize())
 // iniciar passport en cada ruta llamada
@@ -138,9 +139,8 @@ passport.deserializeUser((user , done)=>{
     done(null ,user);})  
 
 //esta ruta solo devuelve el nombre puede ser suplantada por(loginGithub)que devuelve mas datos y ademas esta definida como controlador
-app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
+app.get('/user/login',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
 //
-
 app.get('/github/callback', 
   passport.authenticate('github', {
     failureRedirect: '/user/login',
@@ -151,26 +151,14 @@ app.get('/github/callback',
       return res.redirect('/user/login');
     }
 
-    // Si ya tiene una sesión activa con datos de registro previos
-    if (isAuthenticated) {
+    // Si ya está autenticado, redirigir al perfil
+    if (req.session && req.session.user) {
       return res.redirect('http://localhost:4200/perfil');
     }
-
-    // Primera vez: extraer lo que se pueda y redirigir a registro
-    const [apellido, ...rest] = req.user.displayName.trim().split(' ');
-    const nombre = rest.join(' ');
-
-    req.session.user = {
-      user_id: req.user.id,
-      nombre,
-      apellido,
-      email: req.user.emails?.[0]?.value || '',
-      foto: req.user.photos?.[0]?.value || ''
-    };
-
     return res.redirect('http://localhost:4200/registro');
   }
 );
+
 
      
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
