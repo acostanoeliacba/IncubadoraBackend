@@ -9,6 +9,10 @@ const GitHubStrategy = require('passport-github2').Strategy;
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const multer = require('multer');
 const {isAuthenticated} = require('./middleware/autenticacion')
+const { Op } = require('sequelize');
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
+const Mensaje = require('./models/chat')
 
 
 const userRoutes = require('./routes/usersroutes');
@@ -120,6 +124,69 @@ app.use('/pagos', pagosRoutes);
 app.use('/contenidos', contenidosRoutes);
 app.use('/docentes', docentecursoRoutes);
 
+      // chat docente alumno
+      
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST'],
+    credentials: true
+  },
+  connectionStateRecovery: {}
+});
+
+io.on('connection', async (socket) => {
+  console.log('a user connected');
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+
+  socket.on('chat message', async (msg, clientOffset, callback = () => {}) => {
+    let result;
+    try {
+      result = await Mensaje.create({
+        content: msg,
+        client_offset: clientOffset
+      });
+    } catch (e) {
+      if (e.errno === 19) {
+        // Mensaje duplicado
+        callback();
+      } else {
+        console.error('Error al guardar mensaje:', e);
+      }
+      return;
+    }
+
+    io.emit('chat message', msg, result.id);
+    callback();
+  });
+
+  if (!socket.recovered) {
+    const offset = socket.handshake.auth.serverOffset || 0;
+
+    try {
+      const mensajes = await Mensaje.findAll({
+        where: {
+          id: {
+            [Op.gt]: offset
+          }
+        },
+        order: [['id', 'ASC']]
+      });
+
+      mensajes.forEach((row) => {
+        socket.emit('chat message', row.content, row.id);
+      });
+    } catch (e) {
+      console.error('Error al recuperar mensajes:', e);
+    }
+  }
+});      
+
+
 // para la autenticacion
 passport.use(new GitHubStrategy({
     clientID : process.env.GITHUB_CLIENT_ID,
@@ -176,7 +243,7 @@ app.get('/github/callback',
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
 .then(() => {
     console.log('Conexión exitosa a la base de datos');
-    app.listen(3000, () => {
+    server.listen(3000, () => {
         console.log('Servidor corriendo en el puerto 3000');
     });
 })
