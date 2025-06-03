@@ -9,7 +9,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Introducción a la Carpintería',
         tipo: 'pdf',
-        url: 'https://example.com/carpinteria/intro.pdf',
+        url: 'https://drive.google.com/file/d/1OYXlVefwlUizHSOjxm2Coyw1nnlQhs3h/view?usp=drive_link',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -17,7 +17,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Fundamentos del Diseño Gráfico',
         tipo: 'canva',
-        url: 'https://canva.com/diseno/modulo1',
+        url: 'https://drive.google.com/file/d/1xi2oLpjmdQwoHdx1hTL6ZzY0dj2rxKdW/view?usp=sharing',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -25,7 +25,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Conceptos básicos de Informática',
         tipo: 'docx',
-        url: 'https://example.com/informatica/basico.docx',
+        url: 'https://drive.google.com/file/d/1vyJlJvH-xC8sprCISh-WXyWxcxXvx5fK/view?usp=sharing',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -33,7 +33,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Motores y su funcionamiento',
         tipo: 'mp4',
-        url: 'https://example.com/mecanica/motor.mp4',
+        url: 'https://drive.google.com/file/d/1CF9RbP2jCIuALM1ykiIxiicfiRcUOp61/view?usp=sharing',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -41,7 +41,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Primeros pasos en Oratoria',
         tipo: 'pptx',
-        url: 'https://example.com/oratoria/pasos.pptx',
+        url: 'https://drive.google.com/file/d/19uL2K1icCVFMgrA_eTNZfYWdYoCjBaci/view?usp=sharing',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -49,7 +49,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Introducción al color y forma',
         tipo: 'jpg',
-        url: 'https://example.com/pintura/color.jpg',
+        url: 'https://drive.google.com/file/d/1RfT_w-51YR0NiR-Jl9K5o3-wpNqYKseY/view?usp=sharing',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -57,7 +57,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Qué es la Administración',
         tipo: 'pdf',
-        url: 'https://example.com/administracion/intro.pdf',
+        url: 'https://drive.google.com/file/d/1SJANBMmt8If_5aVeXsOey21X-zZx4iVo/view?usp=drive_link',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -65,7 +65,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Trazos básicos en caligrafía',
         tipo: 'svg',
-        url: 'https://example.com/caligrafia/trazos.svg',
+        url: 'https://drive.google.com/file/d/1CTinubykjIqtwmEDFfuCjkP6iEC21MGW/view?usp=drive_link',
         fecha_publicacion: '2025-06-01'
       },
       {
@@ -73,7 +73,7 @@ module.exports = {
         modulo: 'Módulo 1',
         nombre: 'Cuidados esenciales para uñas',
         tipo: 'mp4',
-        url: 'https://example.com/manicuria/cuidados.mp4',
+        url: 'https://drive.google.com/file/d/1OK3YAssf0jp_-cQCYkLdkJH8W023s7sU/view?usp=drive_link',
         fecha_publicacion: '2025-06-01'
       },
 
@@ -83,7 +83,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Herramientas Manuales y Seguridad',
         tipo: 'pdf',
-        url: 'https://example.com/carpinteria/herramientas.pdf',
+        url: 'https://drive.google.com/file/d/1OYXlVefwlUizHSOjxm2Coyw1nnlQhs3h/view?usp=drive_link',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -91,7 +91,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Diseño para medios digitales',
         tipo: 'canva',
-        url: 'https://canva.com/diseno/modulo2',
+        url: 'https://drive.google.com/file/d/1xi2oLpjmdQwoHdx1hTL6ZzY0dj2rxKdW/view?usp=drive_link',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -99,7 +99,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Procesadores de texto',
         tipo: 'docx',
-        url: 'https://example.com/informatica/procesadores.docx',
+        url: 'https://drive.google.com/file/d/1QweI-zJAP0A3C6YldW60U99i322Qe0k4/view?usp=sharing',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -107,7 +107,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Sistema de Frenos',
         tipo: 'mp4',
-        url: 'https://example.com/mecanica/frenos.mp4',
+        url: 'https://drive.google.com/file/d/1CF9RbP2jCIuALM1ykiIxiicfiRcUOp61/view?usp=drive_link',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -115,7 +115,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Control del lenguaje corporal',
         tipo: 'pptx',
-        url: 'https://example.com/oratoria/corporal.pptx',
+        url: 'https://drive.google.com/file/d/19uL2K1icCVFMgrA_eTNZfYWdYoCjBaci/view?usp=drive_link',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -123,7 +123,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Técnicas con acrílico',
         tipo: 'jpg',
-        url: 'https://example.com/pintura/acrilico.jpg',
+        url: 'https://drive.google.com/file/d/1RfT_w-51YR0NiR-Jl9K5o3-wpNqYKseY/view?usp=sharing',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -131,7 +131,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Planificación estratégica',
         tipo: 'pdf',
-        url: 'https://example.com/administracion/planificacion.pdf',
+        url: 'https://drive.google.com/file/d/1SJANBMmt8If_5aVeXsOey21X-zZx4iVo/view?usp=drive_link',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -139,7 +139,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Estilos modernos de caligrafía',
         tipo: 'svg',
-        url: 'https://example.com/caligrafia/estilos.svg',
+        url: 'https://drive.google.com/file/d/1CTinubykjIqtwmEDFfuCjkP6iEC21MGW/view?usp=drive_link',
         fecha_publicacion: '2025-06-08'
       },
       {
@@ -147,7 +147,7 @@ module.exports = {
         modulo: 'Módulo 2',
         nombre: 'Esmaltado semipermanente',
         tipo: 'mp4',
-        url: 'https://example.com/manicuria/esmaltado.mp4',
+        url: 'https://drive.google.com/file/d/1OK3YAssf0jp_-cQCYkLdkJH8W023s7sU/view?usp=drive_link',
         fecha_publicacion: '2025-06-08'
       }
     ], {});
