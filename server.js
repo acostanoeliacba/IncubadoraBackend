@@ -3,13 +3,22 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { sequelizeUsers } = require('./db/database');
-const passport = require('passport');
-const session = require('express-session');
-const GitHubStrategy = require('passport-github2').Strategy;
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const multer = require('multer');
-const {isAuthenticated} = require('./middleware/autenticacion')
 
+const passport = require('passport');
+
+const GitHubStrategy = require('passport-github2').Strategy;
+
+const axios = require('axios');
+const multer = require('multer');
+
+const verificarToken = require('./middleware/verificarToken');
+const {isAuthenticated}  = require('./middleware/autenticacion');
+const cookieParser = require('cookie-parser');
+
+const { Op } = require('sequelize');
+const { createServer } = require('node:http');
+const { Server } = require('socket.io');
+const Mensaje = require('./models/chat')
 
 const userRoutes = require('./routes/usersroutes');
 const cursosRoutes = require('./routes/cursosroutes');  
@@ -25,17 +34,16 @@ const docentecursoRoutes = require('./routes/docentecursoroutes');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');  // La carpeta donde se guardarán las fotos
+    cb(null, 'uploads/');  
   },
   filename: (req, file, cb) => {
-    const dni = req.body.dni || 'sin_dni'; // Usa 'sin_dni' como valor por defecto si no hay dni
+    const dni = req.body.dni || 'sin_dni'; 
     const ext = path.extname(file.originalname);
     const filename = `${dni}_${Date.now()}${ext}`;
     cb(null, filename);
   }
 });
 
-//const upload = multer({ storage: storage });
 const upload = multer({ 
   storage: storage,
   limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
@@ -73,6 +81,8 @@ const upload2 = multer({
   }
 });
 
+const jwt = require('jsonwebtoken');
+
 dotenv.config(); 
 const app = express();
 
@@ -84,28 +94,7 @@ app.use(cors({
 app.use(express.json());
 app.use(cors()); 
 
-const sessionStore = new SequelizeStore({
-  db: sequelizeUsers, // Instancia de Sequelize
-  tableName: 'Sessions',    // Nombre de la tabla donde se guardarán las sesiones 
-  checkExpirationInterval: 15 * 60 * 1000, 
-  expiration: 24 * 60 * 60 * 1000, 
-});
-sessionStore.sync();
-
-app.use(session({
-  store: sessionStore,
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-    secure: process.env.SESSION_COOKIE_SECURE,
-    maxAge: 1000 * 60 * 60
-  }
-}));
-
 app.use(passport.initialize())
-// iniciar passport en cada ruta llamada
-app.use(passport.session())
 
 app.use('/uploads', express.static('uploads'));
 
@@ -120,59 +109,96 @@ app.use('/pagos', pagosRoutes);
 app.use('/contenidos', contenidosRoutes);
 app.use('/docentes', docentecursoRoutes);
 
-// para la autenticacion
+
 passport.use(new GitHubStrategy({
-    clientID : process.env.GITHUB_CLIENT_ID,
-    clientSecret :process.env.GITHUB_CLIENT_SECRET,
-    callbackURL : process.env.CALLBACK_URL
- },
-  function(accessToken , refreshToken ,profile ,done){
-    return done(null,profile);
+  clientID: process.env.GITHUB_CLIENT_ID,
+  clientSecret: process.env.GITHUB_CLIENT_SECRET,
+  callbackURL: process.env.CALLBACK_URL,
+  scope: ['user:email'], 
+},
 
-  }));
+async (accessToken, refreshToken, profile, done) => {
+   console.log('AccessToken:', accessToken);
+  try {
+    const emailsRes = await axios.get('https://api.github.com/user/emails', {
+      headers: { Authorization: `token ${accessToken}` }
+    });
+
+    const emails = emailsRes.data;
+    const primaryEmailObj = emails.find(emailObj => emailObj.primary) || emails[0];
+    const email = primaryEmailObj?.email || null;
+    
+    const nombre = profile._json?.name || profile.displayName || '';
+    const avatar = (profile.photos && profile.photos.length > 0) ? profile.photos[0].value : '';
 
 
-passport.serializeUser((user , done)=>{
-    done(null ,user);})
-passport.deserializeUser((user , done)=>{
-    done(null ,user);})  
+    profile.nombre = nombre;
+    profile.avatar = avatar;
+    profile.emails = [{ value: email }];
 
-//esta ruta solo devuelve el nombre puede ser suplantada por(loginGithub)que devuelve mas datos y ademas esta definida como controlador
-app.get('/user',(req ,res)=>{res.send(req.session.user !== undefined ?`Iniciado sesión como ${req.session.user.displayName}`:'Sesión Cerrada')})
-//
+    console.log('Datos de GitHub:', {
+      nombre,
+      email,
+      avatar
+    });
 
-app.get('/github/callback', 
-  passport.authenticate('github', {
-    failureRedirect: '/user/login',
-    session: true
-  }),
-  (req, res) => {
+    return done(null, profile);
+  } catch (err) {
+    console.error('Error obteniendo email desde GitHub API', err);
+    return done(err, profile);
+  }
+}));
+
+
+require('dotenv').config();
+
+app.use(cookieParser());
+
+app.get('/github/callback',
+  passport.authenticate('github', { session: false }),
+  async (req, res) => {
     if (!req.user) {
       return res.redirect('/user/login');
     }
 
-    // Si ya tiene una sesión activa con datos de registro previos
-    if (isAuthenticated) {
-      return res.redirect('http://localhost:4200/perfil');
+    try {
+      const profile = req.user;
+
+      const nombreCompleto = profile._json?.name || '';
+      const partesNombre = nombreCompleto.trim().split(' ');
+      const apellido = partesNombre.pop();
+      const nombre = partesNombre.join(' ');
+
+      const email = (profile.emails && profile.emails.length > 0) ? profile.emails[0].value : null;
+      const foto = (profile.photos && profile.photos.length > 0) ? profile.photos[0].value : profile._json?.avatar_url || null;
+
+      console.log('email:', email);
+
+      if (!email) {
+        return res.status(400).send('Email no disponible en perfil GitHub');
+      }
+
+      const payload = {
+        nombre,
+        apellido,
+        email,
+        foto
+      };
+
+      // const queryParams = new URLSearchParams(payload).toString();
+      // return res.redirect(`http://localhost:3000/user/github/create?${queryParams}`);
+      console.error('procesar login GitHub:', payload);
+      await axios.post('http://localhost:3000/user/github/create', payload);
+      res.redirect('http://localhost:4200/perfil');
+
+    } catch (error) {
+      console.error('Error al procesar login GitHub:', error);
+      res.status(500).send('Error interno del servidor');
     }
-
-    // Primera vez: extraer lo que se pueda y redirigir a registro
-    const [apellido, ...rest] = req.user.displayName.trim().split(' ');
-    const nombre = rest.join(' ');
-
-    req.session.user = {
-      user_id: req.user.id,
-      nombre,
-      apellido,
-      email: req.user.emails?.[0]?.value || '',
-      foto: req.user.photos?.[0]?.value || ''
-    };
-
-    return res.redirect('http://localhost:4200/registro');
   }
 );
+    
 
-     
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos
 .then(() => {
     console.log('Conexión exitosa a la base de datos');

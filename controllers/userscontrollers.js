@@ -36,7 +36,7 @@ const createUser = async (req, res) => {
       especialidad,
       foto: fotoPath 
     });
-
+    console.log('Usuario creado en BD:', usuario.toJSON());
     res.status(201).json({
       message: 'Usuario creado exitosamente',
       user: {
@@ -182,20 +182,54 @@ const userLogin = async (req, res) => {
 };
 
 //***************************************************************
-const LoginconGithub = async (req, res) => {
-   if (req.session && req.session.user) {
-    const usuario = {
-      nombre: req.session.user.displayName,//nota github devuenlve nombre completo no nombre y apellido deveria modificar tabla
-      email: req.session.user.emails?.[0]?.value || 'Email no disponible',
-      foto: req.session.user.photos?.[0]?.value || null
-    };
 
-    return res.status(200).json({ usuario });
-  } else {
-    return res.status(401).json({ message: 'No hay sesión activa' });
+const LoginconGithub = async (req, res) => {
+      console.log('Datos recibidos desde GitHub:', req.body);
+  try {
+    const {
+      nombre,
+      apellido,
+      email,
+      foto
+    } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: 'El email es obligatorio' });
+    }
+
+    let usuario = await User.findOne({ where: { email } });
+
+    //// como defino cargar la foto ese es el error
+    const password='github_oauth';
+    const hashedPassword = await bcrypt.hash(password, 10);
+    if (!usuario) {
+      usuario = await User.create({
+        nombre,
+        apellido,
+        fecha_nacimiento: new Date('1900-01-01'),
+        direccion: 'No proporcionada',
+        telefono: 322511111,
+        email,
+        password:hashedPassword, // Encriptar para login tradicional
+        dni: 33777777,
+        especialidad: null,
+        tipo_usuario: 'alumno', // o 'docente'
+        foto
+      });
+    }else{
+    console.log('Error email existente:');  
+    }
+
+    // Podría crear un token JWT para mantener sesión
+    // const token = jwt.sign({ id: usuario.id_usuario, email: usuario.email }, process.env.JWT_SECRET, { expiresIn: '2h' });
+
+    return res.status(200).json({ message: 'Usuario registrado correctamente', usuario });
+
+  } catch (error) {
+    console.error('Error en LoginconGithub:', error);
+    return res.status(500).json({ message: 'Error al crear el usuario' });
   }
 };
-
 //***************************************************************
 module.exports = {
     userLogin,

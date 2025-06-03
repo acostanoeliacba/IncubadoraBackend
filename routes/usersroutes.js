@@ -63,7 +63,8 @@ router.use('/perfildocente', perfildocenteRoutes);
 router.use('/perfilalumno', perfilalumnoRoutes);
 
 // router.get('/loginGithub', usersController.LoginconGithub);
-router.get('/login', passport.authenticate('github'),(req,res)=>{});
+router.get('/login', passport.authenticate('github'));
+router.post('/github/create', usersController.LoginconGithub);
 
 router.get('/logout' , function(req , res,next)
 {
