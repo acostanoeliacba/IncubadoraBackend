@@ -23,20 +23,21 @@ const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log('Archivo recibido en backend:', req.file);
 
-    const newUser = await User.create({
-      nombre,
-      apellido,
-      fecha_nacimiento,
-      direccion,
-      telefono,
-      email,
-      password: hashedPassword,
-      dni,
-      tipo_usuario,
-      especialidad,
-      foto: fotoPath 
-    });
-    console.log('Usuario creado en BD:', usuario.toJSON());
+      const newUser = await User.create({
+        nombre,
+        apellido,
+        fecha_nacimiento,
+        direccion,
+        telefono,
+        email,
+        password: hashedPassword,
+        dni,
+        tipo_usuario,
+        especialidad,
+        foto: fotoPath
+      });
+    console.log('Usuario creado en BD:', newUser.toJSON());
+
     res.status(201).json({
       message: 'Usuario creado exitosamente',
       user: {
