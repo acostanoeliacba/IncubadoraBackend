@@ -112,7 +112,7 @@ app.use('/contenidos', contenidosRoutes);
 app.use('/docentes', docentecursoRoutes);
 
 
-      // chat docente alumno
+//  ******seccion  chat docente alumno ***********
       
 const server = createServer(app);
 const io = new Server(server, {
@@ -174,9 +174,9 @@ io.on('connection', async (socket) => {
   }
 });      
 
+// *******fin seccion chat*******************
 
-// para la autenticacion
-
+// *******Inicio Seccion  autenticacion*********
 passport.use(new GitHubStrategy({
   clientID: process.env.GITHUB_CLIENT_ID,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
@@ -264,67 +264,7 @@ app.get('/github/callback',
     }
   }
 );
-   // chat docente alumno
-      
-const server = createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:4200',
-    methods: ['GET', 'POST'],
-    credentials: true
-  },
-  connectionStateRecovery: {}
-});
 
-io.on('connection', async (socket) => {
-  console.log('a user connected');
-
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-
-  socket.on('chat message', async (msg, clientOffset, callback = () => {}) => {
-    let result;
-    try {
-      result = await Mensaje.create({
-        content: msg,
-        client_offset: clientOffset
-      });
-    } catch (e) {
-      if (e.errno === 19) {
-        // Mensaje duplicado
-        callback();
-      } else {
-        console.error('Error al guardar mensaje:', e);
-      }
-      return;
-    }
-
-    io.emit('chat message', msg, result.id);
-    callback();
-  });
-
-  if (!socket.recovered) {
-    const offset = socket.handshake.auth.serverOffset || 0;
-
-    try {
-      const mensajes = await Mensaje.findAll({
-        where: {
-          id: {
-            [Op.gt]: offset
-          }
-        },
-        order: [['id', 'ASC']]
-      });
-
-      mensajes.forEach((row) => {
-        socket.emit('chat message', row.content, row.id);
-      });
-    } catch (e) {
-      console.error('Error al recuperar mensajes:', e);
-    }
-  }
-});      
         
 
 sequelizeUsers.authenticate()  // Verifica solo la conexión, no sincroniza ni modifica la base de datos

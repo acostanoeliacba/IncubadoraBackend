@@ -15,7 +15,7 @@ module.exports = {
       password: passwordHash,
       dni: 12345678,
       especialidad: 'Administrador del sistema',
-      tipo_usuario: 'docente',
+      tipo_usuario: 'admin',
       foto: '/uploads/12345678-admin.png',
     }], {});
   },

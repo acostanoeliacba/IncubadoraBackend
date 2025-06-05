@@ -21,7 +21,7 @@ module.exports = {
         allowNull: true
       },
       tipo: {
-        type: Sequelize.ENUM('gratuito', 'arancelado', 'capacitacion', 'en linea'),
+        type: Sequelize.ENUM('presencial', 'a distancia'),
         allowNull: true
       },
       costo: {

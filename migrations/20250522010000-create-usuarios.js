@@ -50,7 +50,7 @@ module.exports = {
         allowNull: true
       },
       tipo_usuario: {
-        type: Sequelize.ENUM('alumno', 'docente'),
+        type: Sequelize.ENUM('alumno', 'docente', 'admin'),
         allowNull: false
       },
       foto: {
