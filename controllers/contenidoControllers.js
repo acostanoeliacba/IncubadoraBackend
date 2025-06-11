@@ -41,14 +41,41 @@ const contenidosByCursoById = async (req, res) => {
     }
   };
 
+// const crearContenido = async (req, res) => {
+//   try {
+//     const nuevo = await Contenido.create(req.body);
+//     res.status(201).json(nuevo);
+//   } catch (err) {
+//     res.status(400).json({ error: err.message });
+//   }
+// };
+
 const crearContenido = async (req, res) => {
   try {
+    const { nombre, id_curso } = req.body;
+
+    const existente = await Contenido.findOne({
+       where: {
+        id_curso,
+        nombre: nombre.trim(),
+       // modulo: req.body.modulo.trim()
+      }
+    });
+
+    if (existente) {
+      return res.status(409).json({
+        error: `Ya existe un contenido con el nombre y modulo iguales "${nombre}" en este curso.`
+      });
+    }
+
     const nuevo = await Contenido.create(req.body);
     res.status(201).json(nuevo);
+
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 
 const actualizarContenido = async (req, res) => {
