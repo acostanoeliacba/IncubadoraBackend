@@ -13,6 +13,17 @@ const docentecurso = require('./docentecurso');
      foreignKey: 'id_curso',
      as: 'inscripciones'
   });
+//particiantes
+  usuarios.hasMany(inscripcion, {
+    foreignKey: 'id_usuario',
+    as: 'inscripciones'
+  });
+
+  inscripcion.belongsTo(usuarios, {
+    foreignKey: 'id_usuario',
+    as: 'usuario'
+  });
+
 //Cada usuario puede estar relacionado con muchos cursos, a través de la tabla docentecurso
   usuarios.belongsToMany(cursos, {
     through: docentecurso,

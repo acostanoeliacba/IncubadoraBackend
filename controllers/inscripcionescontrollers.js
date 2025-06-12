@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const Inscripcion = require('../models/inscripciones');
 //para relaciones entre tablas
 const { cursos } = require('../models'); 
+const { usuarios } = require('../models'); 
 //
 const jwt = require('jsonwebtoken');
 
@@ -120,10 +121,34 @@ const deleteInscripcion = async (req, res) => {
   }
 };
 
+
+const getAlumnosPorCurso = async (req, res) => {
+  const idCurso = req.params.id;
+
+  try {
+    const inscripciones = await Inscripcion.findAll({
+      where: { id_curso: idCurso },
+      include: {
+        model: usuarios,
+        as: 'usuario',
+        attributes: ['id_usuario', 'nombre', 'apellido', 'email']
+      }
+    });
+
+    const alumnos = inscripciones.map(i => i.usuario); // sacamos solo los datos del usuario
+
+    res.status(200).json(alumnos);
+  } catch (error) {
+    console.error('Error al obtener alumnos del curso:', error);
+    res.status(500).json({ error: 'Error al obtener alumnos del curso.' });
+  }
+};
+
 module.exports = {
     cargaInscripcion,
     getAllInscripciones,
     getInscripcionById,
+    getAlumnosPorCurso,
     updateInscripcion,
     deleteInscripcion,
     InscripcionesCursosByUser
