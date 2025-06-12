@@ -9,5 +9,6 @@ router.get('/:id', inscripcionesController.getInscripcionById);
 router.get('/cursos/:id', inscripcionesController.InscripcionesCursosByUser);
 router.put('/:id', inscripcionesController.updateInscripcion);
 router.delete('/:id', inscripcionesController.deleteInscripcion);
+router.get('/curso/:id/alumnos', inscripcionesController.getAlumnosPorCurso);
 
 module.exports = router;

@@ -89,6 +89,17 @@ const stripeIntent = async (req, res, next) => {
   }
 };
 
+const obtenerTotalPagos = async (req, res) => {
+  try {
+    const result = await Pagos.sum('monto');
+    res.json({ total: parseFloat(result) });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al calcular el total de pagos' });
+  }
+};
+
+
 
 module.exports = 
 {

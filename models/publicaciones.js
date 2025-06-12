@@ -17,7 +17,8 @@ const publicacion = sequelizeUsers.define('Publicacion', {
     },
     fecha_publicacion: {
       type: DataTypes.DATEONLY,
-      allowNull: true
+      allowNull: true,
+      defaultValue: DataTypes.NOW 
     },
     tipo: {
       type: DataTypes.ENUM('curso', 'capacitacion', 'entrenamiento'),
