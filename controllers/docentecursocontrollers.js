@@ -95,7 +95,8 @@ const getCursosPorDocente = async (req, res) => {
       docente: {
         id: docente.id_usuario,
         nombre: docente.nombre,
-        apellido: docente.apellido
+        apellido: docente.apellido,
+        foto: docente.foto
       },
       cursos: docente.cursosAsignados
     });
